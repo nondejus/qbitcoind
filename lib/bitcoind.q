@@ -29,10 +29,10 @@ getblockcount:{[]
  }
 
 
-getblock:{[hash]
+getblock:{[hash;verbose]
   body:defaultPayload[];
   body[`method]:"getblock";
-  body[`params]:`blockhash`verbose!(hash;2);
+  body[`params]:`blockhash`verbose!(hash;verbose);
   .bitcoind.request[`bitcoind;body]
  }
 
@@ -50,10 +50,10 @@ getblockhash:{[index]
   .bitcoind.request[`bitcoind;body]
  }
 
-getrawtransaction:{[tx]
+getrawtransaction:{[tx;verbose]
   body:defaultPayload[];
   body[`method]:"getrawtransaction";
-  body[`params]:`txid`verbose!(tx;1b);
+  body[`params]:`txid`verbose!(tx;verbose);
   .bitcoind.request[`bitcoind;body]
  }
 
