@@ -112,6 +112,37 @@ getrawtransaction:{[tx;verbose]
   .bitcoind.request[`bitcoind;body]
  }
 
+getmemoryinfo:{[]
+  body:defaultPayload[];
+  body[`method]:"getmemoryinfo";
+  .bitcoind.request[`bitcoind;body]
+ }
+
+getmempoolancestors:{[tx;verbose]
+  body:defaultPayload[];
+  body[`method]:"getmempoolancestors";
+  body[`params]:`txid`verbose!(tx;verbose);
+  .bitcoind.request[`bitcoind;body]
+ }
+
+getmempooldescendants:{[tx;verbose]
+  body:defaultPayload[];
+  body[`method]:"getmempooldescendants";
+  body[`params]:`txid`verbose!(tx;verbose);
+  .bitcoind.request[`bitcoind;body]
+ }
+
+getmempoolentry:{[tx]
+  body:defaultPayload[];
+  body[`method]:"getmempoolentry";
+  .bitcoind.request[`bitcoind;body]
+ }
+
+getmempoolinfo:{[]
+  body:defaultPayload[];
+  body[`method]:"getmempoolinfo";
+  .bitcoind.request[`bitcoind;body]
+ }
 
 \d .
 
