@@ -144,5 +144,13 @@ getmempoolinfo:{[]
   .bitcoind.request[`bitcoind;body]
  }
 
+
+getnewaddress:{[account]
+  body:defaultPayload[];
+  body[`method]:"getnewaddress";
+  body[`params]:(enlist `account)!(enlist account);
+  .bitcoind.request[`bitcoind;body]
+ }
+
 \d .
 
