@@ -12,7 +12,7 @@ qbitcoind is a kdb+ wrapper library designed to interact with the Bitcoin blockc
 * kdb+ v3.4 or higher
 * [qutil](https://github.com/nugend/qutil) - Required if you wish to load the library using qutil.
   If not, an alternative method is provided. See below.
-* A bitcoind node for the library to communicate with.  
+* A bitcoin node for the library to communicate with. For install instructions see [Running a Full Node]( https://bitcoin.org/en/full-node)
 
 ## Installing
 
