@@ -49,16 +49,16 @@ Create a soft link named "qbitcoind" in your QPATH directory which points to qbi
 
 ### Hostnames
 
-By default, qfactom assumes the *bitcoind* application is running on your localhost server.
-If it is hosted elsewhere, then run the following commands to change the default
+By default, qbitcoind assumes the *bitcoind* software is running on your localhost server on port 8332.
+If it is hosted elsewhere, or listening on a different port, then run the following commands to change the default
 
 ```C++
-    q).bitcoind.initHost[":http://remotehost:8332/"]       // Change bitcoind host location
+    q).bitcoind.initHost[":http://remotehost:8332/"]    
 ```    
 ### Security: Username and Password
 
 
-If you are running *bitcoind*, it is recommended to secure the Json-RPC API with a username and password, as shown below 
+If you are running *bitcoind*, it is recommended to secure the JSON-RPC API with a username and password, as shown below 
 ```C++
     ./bitcoind -daemon -rpcuser=<user> -rpcpassword=<password>
      alternatively,
@@ -73,7 +73,7 @@ If you are running *bitcoind*, it is recommended to secure the Json-RPC API with
     rpcpassword=mypassword
 
 ```
-Then run the following command to ensure the authentication credentials are passed during the API calls
+To ensure the authentication credentials are passed during all API calls initialise the username and password credentials using the initPass function
 ```C++
     q).bitcoind.initPass[username;password]
 ```
@@ -87,7 +87,7 @@ An easy way to confirm that the hostname and authentication credentials are set 
 ```
 
 Incorrect username and password credentials will result in an Error message being printed to stderr,
-and a dictionary object with key error being returned.
+and a dictionary object containing a single key, error. No result key is returned.
 ```C++
     q).bitcoind.getblockcount[]
     Error: partial token at 1 .Q.hpbit returned:
@@ -101,7 +101,7 @@ and a dictionary object with key error being returned.
 
 ## License
 
-This code is licensed under an MIT license.  See [LICENSE](https://github.com/jlucid/qfactom/blob/master/LICENSE) for
+This code is licensed under an MIT license.  See [LICENSE](https://github.com/jlucid/qbitcoind/blob/master/LICENSE) for
 the full text.
 
 ## Contact
