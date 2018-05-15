@@ -20,20 +20,25 @@ First set the environmental variable QBITCOIND_HOME to where you placed the qbit
 ```
     $export QBITCOIND_HOME=/home/test/library/qbitcoind/
 ```
-To load the qbitcoind library using [qutil](https://github.com/nugend/qutil), follow the steps below.
+The library can then be loaded using the provided bitcoindLoad.q script.
+You can confirm the library is loaded correctly by checking that the .bitcoind namespace is present in the q session.
 
-Create a link named "qbitcoind" in the QPATH directory which points to qbitcoind/lib. This will enable .utl.require function to find the init.q file and load all q files. You can confirm the library is loaded correctly by checking that the .bitcoind namespace is present in the q session. The namespace contains all the supported API calls for the associated application.
-```C++
-    q).utl.require "qbitcoind"
-    q)key `
-    `q`Q`h`j`o`util`bitcoind    // .bitcoind namespace loaded
-```    
-Alternatively, the library can be loaded using the provided bitcoindLoad.q script.
 ```C++
     $q $QBITCOIND_HOME/lib/bitcoindLoad.q
     q)key `
-    `q`Q`h`j`o`util`bitcoind   
+    `q`Q`h`j`o`util`bitcoind   // .bitcoind namespace loaded
 ```
+
+Alternatively, to load the library using [qutil](https://github.com/nugend/qutil), follow the steps below.
+
+Create a soft link named "qbitcoind" in your QPATH directory which points to qbitcoind/lib. This will enable standard .utl.require function to find the init.q file and load all q files. The namespace contains all the supported API calls.
+
+```C++
+    q).utl.require "qbitcoind"
+    q)key `
+    `q`Q`h`j`o`utl`bitcoind     // .bitcoind namespace loaded
+```    
+
 
 ## Configure
 
