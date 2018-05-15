@@ -48,16 +48,25 @@ By default, qfactom assumes the *bitcoind* application is running on your localh
 If it is hosted elsewhere, then run the following commands to change the default
 
 ```C++
-    q).factomd.initHost["http://remotehost:8083/v2"]       // Change bitcoind host location
+    q).bitcoind.initHost[":http://remotehost:8332/"]       // Change bitcoind host location
 ```    
 ### Security: Username and Password
 
 
 If you are running *bitcoind*, it is recommended to secure the Json-RPC API with a username and password, as shown below 
 ```C++
-    ./bitvoind -rpcuser=<user> -rpcpassword=<password>
+    ./bitcoind -daemon -rpcuser=<user> -rpcpassword=<password>
      alternatively,
-    Add username and password credentials to the bitcoin.conf file 
+    Add username and password credentials to the bitcoin.conf file, sample below
+    
+    # Maintain a full transaction index, used by the getrawtransaction rpc call.
+    txindex=1
+    # [rpc]
+    # Accept command line and JSON-RPC commands.
+    server=1
+    rpcuser=myusername
+    rpcpassword=mypassword
+
 ```
 Then run the following command to ensure the authentication credentials are passed during the API calls
 ```C++
