@@ -1,5 +1,3 @@
-qbitcoind is a kdb+ wrapper library designed to perform JSON-RPC calls against a bitcoind client. Library can be used to extract block and transaction info. 
-
 # qbitcoind
 qbitcoind is a kdb+ wrapper library designed to interact with the Bitcoin blockchain via a bitcoin core node (*bitcoind*) REST APIs. 
 
