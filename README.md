@@ -24,13 +24,13 @@ To load the qbitcoind library using [qutil](https://github.com/nugend/qutil), fo
 
 Create a link named "qbitcoind" in the QPATH directory which points to qbitcoind/lib. This will enable .utl.require function to find the init.q file and load all q files. You can confirm the library is loaded correctly by checking that the .bitcoind namespace is present in the q session. The namespace contains all the supported API calls for the associated application.
 ```C++
-    q).utl.require "qbitcoid"
+    q).utl.require "qbitcoind"
     q)key `
     `q`Q`h`j`o`util`bitcoind    // .bitcoind namespace loaded
 ```    
 Alternatively, the library can be loaded using the provided bitcoindLoad.q script.
 ```C++
-    $q $QBITCOIND_HOME/lib/qbitcoindLoad.q
+    $q $QBITCOIND_HOME/lib/bitcoindLoad.q
     q)key `
     `q`Q`h`j`o`util`bitcoind   
 ```
