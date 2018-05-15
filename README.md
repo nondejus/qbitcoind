@@ -16,11 +16,16 @@ qbitcoind is a kdb+ wrapper library designed to interact with the Bitcoin blockc
 
 ## Installing
 
-First set the environmental variable QBITCOIND_HOME to where you placed the qbitcoind folder locally.
+If you are using GIT, then execute the following clone command in the directory you want the
+code to reside 
+```C++   
+   git clone git@github.com:jlucid/qbitcoind.git repository
 ```
-    $export QBITCOIND_HOME=/home/test/library/qbitcoind/
+Next set the environmental variable QBITCOIND_HOME to where the qbitcoind folder was downloaded to.
 ```
-The library can then be loaded using the provided bitcoindLoad.q script.
+    $export QBITCOIND_HOME=/home/mygitrepos/qbitcoind/
+```
+The library can then be loaded directly into a q session using the command below
 You can confirm the library is loaded correctly by checking that the .bitcoind namespace is present in the q session.
 
 ```C++
@@ -29,9 +34,9 @@ You can confirm the library is loaded correctly by checking that the .bitcoind n
     `q`Q`h`j`o`util`bitcoind   // .bitcoind namespace loaded
 ```
 
-Alternatively, to load the library using [qutil](https://github.com/nugend/qutil), follow the steps below.
+Alternatively, to load the library using the standard [qutil](https://github.com/nugend/qutil) library, follow the steps below.
 
-Create a soft link named "qbitcoind" in your QPATH directory which points to qbitcoind/lib. This will enable standard .utl.require function to find the init.q file and load all q files. The namespace contains all the supported API calls.
+Create a soft link named "qbitcoind" in your QPATH directory which points to qbitcoind/lib. This will enable standard .utl.require function to find the init.q file and load the library. The namespace contains all the supported API calls.
 
 ```C++
     q).utl.require "qbitcoind"
@@ -81,13 +86,12 @@ An easy way to confirm that the hostname and authentication credentials are set 
     id    | 0
 ```
 
-Incorrect username and password credentials will result in an error message being printed to stderr,
+Incorrect username and password credentials will result in an Error message being printed to stderr,
 and a dictionary object with key error being returned.
 ```C++
-    q).factomd.properties[{x}]
-    Error: illegal char U at 4 .Q.hpfact returned: 401 Unauthorized.
-
-    error| "401 Unauthorized.\n"
+    q).bitcoind.getblockcount[]
+    Error: partial token at 1 .Q.hpbit returned:
+    error| ""
 ```
 ### Security: TLS Support
 
