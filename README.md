@@ -53,7 +53,7 @@ By default, qbitcoind assumes the *bitcoind* software is running on your localho
 If it is hosted elsewhere, or listening on a different port, then run the following commands to change the default
 
 ```C++
-    q).bitcoind.initHost[":http://remotehost:8332/"]    
+    q).bitcoind.initHost["http://remotehost:8332/"]    
 ```    
 ### Security: Username and Password
 
