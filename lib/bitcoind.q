@@ -159,6 +159,17 @@ importprivkey:{[privateKey;account;rescan]
   body[`params]:`privkey`label`rescan!(privateKey;account;rescan);
   .bitcoind.request[body]
  }
+ 
+getaddressesbyaccount:{[account] 
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getaddressesbyaccount";
+  body[`params]:(enlist `account)!(enlist account);  
+  .bitcoind.request[body]
+ }
+
+ 
+ 
+ 
 
 
 
