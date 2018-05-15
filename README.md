@@ -58,10 +58,10 @@ Then run the following command to ensure the authentication credentials are pass
 An easy way to confirm that the hostname and authentication credentials are set up correctly, is to execute the **.bitcoind.properties** function which will make a simple request for the version properties.
 
 ```C++
-    q).factomd.properties[{x}]
-    jsonrpc| "2.0"
-    id     | 0f
-    result | `factomdversion`factomdapiversion!("0.4.2.1";"2.0")
+    q).bitcoind.getblockcount[]
+    result| 522825
+    error |
+    id    | 0
 ```
 
 Incorrect username and password credentials will result in an error message being printed to stderr,
