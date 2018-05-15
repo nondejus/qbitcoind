@@ -151,5 +151,16 @@ getnewaddress:{[account]
   .bitcoind.request[body]
  }
 
+/// WALLET
+
+importprivkey:{[privateKey;account;rescan] 
+  body:defaultPayload[];
+  body[`method]:"importprivkey";
+  body[`params]:`privkey`label`rescan!(privateKey;account;rescan);
+  .bitcoind.request[body]
+ }
+
+
+
 \d .
 
