@@ -26,6 +26,60 @@ defaultPayload:{
 /// Block Chain RPCs
 ///////////////////////
 
+abandontransaction:{[txid]
+  body:defaultPayload[];
+  body[`method]:"abandontransaction";
+  body[`params]:(enlist `txid)!(enlist txid);
+  .bitcoind.request[body]
+ }
+
+
+addnode:{[hostandport;command]
+  body:defaultPayload[];
+  body[`method]:"addnode";
+  body[`params]:(`node`command)!(hostandport;command);
+  .bitcoind.request[body]
+ }
+
+
+getnetworkinfo:{[]
+  body:defaultPayload[];
+  body[`method]:"getnetworkinfo";
+  .bitcoind.request[body]
+ }
+
+listbanned:{[]
+  body:defaultPayload[];
+  body[`method]:"listbanned";
+  .bitcoind.request[body]
+ }
+
+getpeerinfo:{[]
+  body:defaultPayload[];
+  body[`method]:"getpeerinfo";
+  .bitcoind.request[body]
+ }
+
+
+getunconfirmedbalance:{[]
+  body:defaultPayload[];
+  body[`method]:"getunconfirmedbalance";
+  .bitcoind.request[body]
+ }
+
+
+getwalletinfo:{[]
+  body:defaultPayload[];
+  body[`method]:"getwalletinfo";
+  .bitcoind.request[body]
+ }
+
+
+getaddednodeinfo:{[dns]
+  body:defaultPayload[];
+  body[`method]:"getaddednodeinfo";
+  .bitcoind.request[body]
+ }
 
 getbestblockhash:{[]
   body:defaultPayload[];
@@ -141,6 +195,13 @@ getmempoolentry:{[tx]
 getmempoolinfo:{[]
   body:defaultPayload[];
   body[`method]:"getmempoolinfo";
+  .bitcoind.request[body]
+ }
+
+getaccount:{[address]
+  body:defaultPayload[];
+  body[`method]:"getaccount";
+  body[`params]:(enlist `address)!(enlist address);
   .bitcoind.request[body]
  }
 
