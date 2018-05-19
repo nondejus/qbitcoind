@@ -33,6 +33,13 @@ abandontransaction:{[txid]
   .bitcoind.request[body]
  }
 
+backupwallet:{[destination]
+  body:defaultPayload[];
+  body[`method]:"backupwallet";
+  body[`params]:(enlist `destination)!(enlist destination);
+  .bitcoind.request[body]
+ }
+
 
 addnode:{[hostandport;command]
   body:defaultPayload[];
