@@ -49,6 +49,14 @@ backupwallet:{[destination]
  }
 
 
+bumpfee:{[txid]
+  body:defaultPayload[];
+  body[`method]:"bumpfee";
+  body[`params]:(enlist `txid)!(enlist txid);
+  .bitcoind.request[body]
+ }
+
+
 getbalance:{[account]
   body:defaultPayload[];
   body[`method]:"getbalance";
