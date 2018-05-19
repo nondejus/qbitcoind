@@ -3,7 +3,7 @@ qbitcoind is a kdb+ wrapper library designed to interact with the Bitcoin blockc
 
 ## Functionality
 * Transactions: 
-* Wallet creation:
+* [Wallet Management](https://github.com/jlucid/qbitcoind/wiki/Wallet)
 * Blockchain data extraction:
 * Mem pool data extraction:
 
