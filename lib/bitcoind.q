@@ -33,10 +33,26 @@ abandontransaction:{[txid]
   .bitcoind.request[body]
  }
 
+addwitnessaddress:{[address]
+  body:defaultPayload[];
+  body[`method]:"addwitnessaddress";
+  body[`params]:(enlist `address)!(enlist address);
+  .bitcoind.request[body]
+ }
+
+
 backupwallet:{[destination]
   body:defaultPayload[];
   body[`method]:"backupwallet";
   body[`params]:(enlist `destination)!(enlist destination);
+  .bitcoind.request[body]
+ }
+
+
+getbalance:{[account]
+  body:defaultPayload[];
+  body[`method]:"getbalance";
+  body[`params]:(enlist `account)!(enlist account);
   .bitcoind.request[body]
  }
 
@@ -234,10 +250,6 @@ getaddressesbyaccount:{[account]
   body[`params]:(enlist `account)!(enlist account);  
   .bitcoind.request[body]
  }
-
- 
- 
- 
 
 
 
