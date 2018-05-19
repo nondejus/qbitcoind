@@ -2,10 +2,10 @@
 qbitcoind is a kdb+ wrapper library designed to interact with the Bitcoin blockchain via a bitcoin core node (*bitcoind*) REST APIs. 
 
 ## Functionality
-* Transactions: 
+* Node Information
 * [Wallet Management](https://github.com/jlucid/qbitcoind/wiki/Wallet)
-* Blockchain data extraction:
-* Mem pool data extraction:
+* Network Info
+* Mempool Info
 
 ## Prerequisites
 
