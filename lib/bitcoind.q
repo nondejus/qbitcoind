@@ -266,6 +266,14 @@ gettxoutsetinfo:{[]
  }
 
 
+preciousblock:{[blockhash]
+  body:defaultPayload[];
+  body[`method]:"preciousblock";
+  body[`params]:(enlist `blockhash)!(enlist blockhash);
+  .bitcoind.request[body]
+ }
+
+
 gettxoutproof:{[txid;hash]
   body:defaultPayload[];
   body[`method]:"gettxoutproof";
