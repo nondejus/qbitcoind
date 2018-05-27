@@ -252,6 +252,20 @@ gettxout:{[txid;index]
   .bitcoind.request[body]
  }
 
+gettxoutproof:{[txids;blockhash] 
+  body:defaultPayload[]; 
+  body[`method]:"gettxoutproof"; 
+  body[`params]:(`txids`blockhash)!(txids;blockhash); 
+  .bitcoind.request[body] 
+ }
+
+
+gettxoutproof:{[txid;hash]
+  body:defaultPayload[];
+  body[`method]:"gettxoutproof";
+  body[`params]:(`txid`hash)!(txid;hash);
+  .bitcoind.request[body]
+ }
 
 getaccount:{[address]
   body:defaultPayload[];
