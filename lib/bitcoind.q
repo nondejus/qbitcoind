@@ -274,6 +274,14 @@ preciousblock:{[blockhash]
  }
 
 
+pruneblockchain:{[height]
+  body:defaultPayload[];
+  body[`method]:"pruneblockchain";
+  body[`params]:(enlist `height)!(enlist height); 
+  .bitcoind.request[body]
+ }
+
+
 gettxoutproof:{[txid;hash]
   body:defaultPayload[];
   body[`method]:"gettxoutproof";
