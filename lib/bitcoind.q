@@ -237,6 +237,14 @@ getmempoolinfo:{[]
   .bitcoind.request[body]
  }
 
+
+getrawmempool:{[]
+  body:defaultPayload[];
+  body[`method]:"getrawmempool";
+  .bitcoind.request[body]
+ }
+
+
 getaccount:{[address]
   body:defaultPayload[];
   body[`method]:"getaccount";
