@@ -282,6 +282,14 @@ pruneblockchain:{[height]
  }
 
 
+verifychain:{[checklevel;nblocks]
+  body:defaultPayload[];
+  body[`method]:"verifychain";
+  body[`params]:(`checklevel`nblocks)!(checklevel;nblocks);
+  .bitcoind.request[body]
+ }
+
+
 gettxoutproof:{[txid;hash]
   body:defaultPayload[];
   body[`method]:"gettxoutproof";
