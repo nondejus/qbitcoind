@@ -1,18 +1,21 @@
 # qbitcoind
-qbitcoind is a kdb+ wrapper library designed to interact with the Bitcoin blockchain via a bitcoin core node (*bitcoind*) REST APIs. 
+Running Bitcoin (*bitcoind*) with the -server argument enables it to function as a HTTP JSON-RPC server.
+qbitcoind is a library used to interact with this JSON-RPC API from within a q session.
+
 
 ## Functionality
-* Transactions: 
-* Wallet creation:
-* Blockchain data extraction:
-* Mem pool data extraction:
+* Node Information
+* [Wallet Management](https://github.com/jlucid/qbitcoind/wiki/Wallet)
+* Network Info
+* Mempool Info
 
 ## Prerequisites
 
 * kdb+ v3.4 or higher
 * [qutil](https://github.com/nugend/qutil) - Required if you wish to load the library using qutil.
   If not, an alternative method is provided. See below.
-* A bitcoin node for the library to communicate with. For install instructions see [Running a Full Node]( https://bitcoin.org/en/full-node)
+* A bitcoin node for the library to communicate with. For install instructions see [Running a Full Node]( https://bitcoin.org/en/full-node).
+  Library within was written and tested against Bitcoin Core Daemon version v0.16.0.0-g4b4d7eb255
 
 ## Installing
 
