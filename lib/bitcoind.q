@@ -224,9 +224,10 @@ getmempooldescendants:{[tx;verbose]
   .bitcoind.request[body]
  }
 
-getmempoolentry:{[tx]
+getmempoolentry:{[txid]
   body:defaultPayload[];
   body[`method]:"getmempoolentry";
+  body[`params]:(enlist `txid)!(enlist txid);
   .bitcoind.request[body]
  }
 
