@@ -245,6 +245,14 @@ getrawmempool:{[]
  }
 
 
+gettxout:{[txid;vout]
+  body:defaultPayload[];
+  body[`method]:"gettxout";
+  body[`params]:(`txid`vout)!(txid;vout);
+  .bitcoind.request[body]
+ }
+
+
 getaccount:{[address]
   body:defaultPayload[];
   body[`method]:"getaccount";
