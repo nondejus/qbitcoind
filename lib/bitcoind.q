@@ -245,10 +245,10 @@ getrawmempool:{[]
  }
 
 
-gettxout:{[txid;vout]
+gettxout:{[txid;index]
   body:defaultPayload[];
   body[`method]:"gettxout";
-  body[`params]:(`txid`vout)!(txid;vout);
+  body[`params]:(`txid`n)!(txid;index);
   .bitcoind.request[body]
  }
 
