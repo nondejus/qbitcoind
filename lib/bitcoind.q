@@ -290,6 +290,14 @@ verifychain:{[checklevel;nblocks]
  }
 
 
+verifytxoutproof:{[proof]
+  body:defaultPayload[];
+  body[`method]:"verifytxoutproof";
+  body[`params]:(enlist `proof)!(enlist proof);
+  .bitcoind.request[body]
+ }
+
+
 gettxoutproof:{[txid;hash]
   body:defaultPayload[];
   body[`method]:"gettxoutproof";
