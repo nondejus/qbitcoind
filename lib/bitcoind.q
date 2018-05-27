@@ -259,6 +259,12 @@ gettxoutproof:{[txids;blockhash]
   .bitcoind.request[body] 
  }
 
+gettxoutsetinfo:{[]
+  body:defaultPayload[];
+  body[`method]:"gettxoutsetinfo";
+  .bitcoind.request[body]
+ }
+
 
 gettxoutproof:{[txid;hash]
   body:defaultPayload[];
