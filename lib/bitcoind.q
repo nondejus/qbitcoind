@@ -40,6 +40,13 @@ addwitnessaddress:{[address]
   .bitcoind.request[body]
  }
 
+addmultisigaddress:{[nrequired;Keys;account] 
+  body:.bitcoind.defaultPayload[];  
+  body[`method]:"addmultisigaddress";
+  body[`params]:(`nrequired`keys`account)!(nrequired;Keys;account);
+  .bitcoind.request[body]
+ }
+
 
 backupwallet:{[destination]
   body:defaultPayload[];
