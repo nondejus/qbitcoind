@@ -69,6 +69,13 @@ clearbanned:{[]
   .bitcoind.request[body]
  }
 
+setban:{[subnet;command;bantime;absolute]
+  body:defaultPayload[];
+  body[`method]:"setban";
+  body[`params]:`subnet`command`bantime`absolute!(subnet;command;bantime;absolute);
+  .bitcoind.request[body]
+ }
+
 
 disconnectnode:{[hostandport] 
   body:defaultPayload[];
