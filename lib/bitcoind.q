@@ -34,6 +34,11 @@ help:{[command]
   .bitcoind.request[body]
  }
 
+stop:{[]
+  body:defaultPayload[];
+  body[`method]:"stop";
+  .bitcoind.request[body]
+ }
 
 abandontransaction:{[txid]
   body:defaultPayload[];
