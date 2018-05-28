@@ -86,6 +86,11 @@ getaddednodeinfo:{[hostandport]
  }
 
 
+getnettotals:{[] 
+  body:defaultPayload[];
+  body[`method]:"getnettotals"; 
+  .bitcoind.request[body]
+ }
 
 
 
