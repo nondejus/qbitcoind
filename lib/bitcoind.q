@@ -55,6 +55,15 @@ backupwallet:{[destination]
   .bitcoind.request[body]
  }
 
+setnetworkactive:{[state]
+  body:defaultPayload[];
+  body[`method]:"state";
+  body[`params]:(enlist `state)!(enlist state);
+  .bitcoind.request[body]
+ }
+
+
+
 
 bumpfee:{[txid]
   body:defaultPayload[];
