@@ -93,6 +93,13 @@ getnettotals:{[]
  }
 
 
+ping:{[] 
+  body:defaultPayload[];
+  body[`method]:"ping"; 
+  .bitcoind.request[body]
+ }
+
+
 
 getbalance:{[account]
   body:defaultPayload[];
