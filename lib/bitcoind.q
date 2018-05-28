@@ -209,7 +209,7 @@ getmempoolancestors:{[txid;verbose]
   .bitcoind.request[body]
  }
 
-getconnectioncounts:{[]
+getconnectioncount:{[]
   body:defaultPayload[];
   body[`method]:"getconnectioncount";
   .bitcoind.request[body]
