@@ -70,6 +70,14 @@ clearbanned:{[]
  }
 
 
+disconnectnode:{[hostandport] 
+  body:defaultPayload[];
+  body[`method]:"disconnectnode";
+  body[`params]:(enlist `address)!(enlist hostandport); 
+  .bitcoind.request[body]
+ }
+
+
 getbalance:{[account]
   body:defaultPayload[];
   body[`method]:"getbalance";
