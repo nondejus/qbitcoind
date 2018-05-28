@@ -26,6 +26,15 @@ defaultPayload:{
 /// Block Chain RPCs
 ///////////////////////
 
+
+help:{[command]
+  body:defaultPayload[];
+  body[`method]:"help";
+  body[`params]:(enlist `command)!(enlist command);
+  .bitcoind.request[body]
+ }
+
+
 abandontransaction:{[txid]
   body:defaultPayload[];
   body[`method]:"abandontransaction";
