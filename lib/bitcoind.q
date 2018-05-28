@@ -63,6 +63,12 @@ bumpfee:{[txid]
   .bitcoind.request[body]
  }
 
+clearbanned:{[] 
+  body:defaultPayload[];
+  body[`method]:"clearbanned"; 
+  .bitcoind.request[body]
+ }
+
 
 getbalance:{[account]
   body:defaultPayload[];
