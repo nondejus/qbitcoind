@@ -78,6 +78,17 @@ disconnectnode:{[hostandport]
  }
 
 
+getaddednodeinfo:{[hostandport] 
+  body:defaultPayload[];
+  body[`method]:"getaddednodeinfo";
+  body[`params]:(enlist `node)!(enlist hostandport); 
+  .bitcoind.request[body]
+ }
+
+
+
+
+
 getbalance:{[account]
   body:defaultPayload[];
   body[`method]:"getbalance";
