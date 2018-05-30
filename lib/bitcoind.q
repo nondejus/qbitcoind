@@ -402,7 +402,12 @@ getaddressesbyaccount:{[account]
   .bitcoind.request[body]
  }
 
-
+createrawtransaction:{[inputs;outputs;locktime;replaceable]
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"createrawtransaction";
+  body[`params]:`inputs`outputs`locktime`replaceable!(inputs;outputs;locktime;replaceable);  
+  .bitcoind.request[body]
+ }
 
 \d .
 
