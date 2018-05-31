@@ -409,5 +409,12 @@ createrawtransaction:{[inputs;outputs;locktime;replaceable]
   .bitcoind.request[body]
  }
 
-\d .
+signrawtransaction:{[hexstring;prevtxs;privkeys;sighashtype]
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"signrawtransaction";
+  body[`params]:`hexstring`prevtxs`privkeys`sighashtype!(hexstring;prevtxs;privkeys;sighashtype);  
+  .bitcoind.request[body]
+ }
 
+
+\d .
