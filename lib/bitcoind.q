@@ -416,5 +416,14 @@ signrawtransaction:{[hexstring;prevtxs;privkeys;sighashtype]
   .bitcoind.request[body]
  }
 
+decoderawtransaction:{[hexstring;iswitness]
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"decoderawtransaction";
+  body[`params]:`hexstring`iswitness!(hexstring;iswitness);  
+  .bitcoind.request[body]
+ }
+
+
+
 
 \d .
