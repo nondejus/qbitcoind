@@ -431,5 +431,12 @@ decodescript:{[hexstring]
   .bitcoind.request[body]
  }
 
+sendrawtransaction:{[hexstring;allowhighfees]
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"sendrawtransaction";
+  body[`params]:(`hexstring`allowhighfees)!(hexstring;allowhighfees);  
+  .bitcoind.request[body]
+ }
+
 
 \d .
