@@ -8,6 +8,7 @@ qbitcoind is a library used to interact with this JSON-RPC API from within a q s
 * [Block Chain Information](https://github.com/jlucid/qbitcoind/wiki/Block-chain-RPCs)
 * [Network Information](https://github.com/jlucid/qbitcoind/wiki/Network-RPCs)
 * [Wallet Management](https://github.com/jlucid/qbitcoind/wiki/Wallet)
+* [Raw Transaction Generation](https://github.com/jlucid/qbitcoind/wiki/Raw-Transaction-RPCs)
 
 ## Prerequisites
 
