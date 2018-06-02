@@ -424,6 +424,12 @@ decoderawtransaction:{[hexstring;iswitness]
  }
 
 
+decodescript:{[hexstring]
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"decodescript";
+  body[`params]:(enlist `hexstring)!(enlist hexstring);  
+  .bitcoind.request[body]
+ }
 
 
 \d .
