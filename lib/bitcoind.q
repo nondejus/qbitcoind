@@ -110,6 +110,14 @@ disconnectnode:{[hostandport]
  }
 
 
+dumpprivkey:{[address]
+  body:defaultPayload[];
+  body[`method]:"dumpprivkey";
+  body[`params]:(enlist `address)!(enlist address);
+  .bitcoind.request[body]
+ }
+
+
 getaccount:{[address]
   body:defaultPayload[];
   body[`method]:"getaccount";
