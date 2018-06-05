@@ -118,6 +118,14 @@ dumpprivkey:{[address]
  }
 
 
+dumpwallet:{[filename]
+  body:defaultPayload[];
+  body[`method]:"dumpwallet";
+  body[`params]:(enlist `filename)!(enlist filename);
+  .bitcoind.request[body]
+ }
+
+
 getaccount:{[address]
   body:defaultPayload[];
   body[`method]:"getaccount";
