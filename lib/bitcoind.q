@@ -126,6 +126,15 @@ dumpwallet:{[filename]
  }
 
 
+
+encryptwallet:{[passphrase]
+  body:defaultPayload[];
+  body[`method]:"encryptwallet";
+  body[`params]:(enlist `passphrase)!(enlist passphrase);
+  .bitcoind.request[body]
+ }
+
+
 getaccount:{[address]
   body:defaultPayload[];
   body[`method]:"getaccount";
