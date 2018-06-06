@@ -445,6 +445,14 @@ setnetworkactive:{[state]
  }
 
 
+signmessage:{[address;message]
+  body:defaultPayload[];
+  body[`method]:"signmessage";
+  body[`params]:(`address`message)!(address;message);
+  .bitcoind.request[body]
+ }
+
+
 signrawtransaction:{[hexstring;prevtxs;privkeys;sighashtype]
   body:.bitcoind.defaultPayload[];
   body[`method]:"signrawtransaction";
