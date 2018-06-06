@@ -468,6 +468,14 @@ stop:{[]
  }
 
 
+walletpassphrase:{[passphrase;timeout]
+  body:defaultPayload[];
+  body[`method]:"walletpassphrase";
+  body[`params]:(`passphrase`timeout)!(passphrase;timeout);
+  .bitcoind.request[body]
+ }
+
+
 verifychain:{[checklevel;nblocks]
   body:defaultPayload[];
   body[`method]:"verifychain";
