@@ -307,6 +307,14 @@ getpeerinfo:{[]
  }
 
 
+getrawchangeaddress:{[address_type]
+  body:defaultPayload[];
+  body[`method]:"getrawchangeaddress";
+  body[`params]:(enlist `address_type)!(enlist address_type);
+  .bitcoind.request[body]
+ }
+
+
 getrawmempool:{[]
   body:defaultPayload[];
   body[`method]:"getrawmempool";
