@@ -492,4 +492,12 @@ verifytxoutproof:{[proof]
  }
 
 
+verifymessage:{[address;signature;message] 
+  body:defaultPayload[];
+  body[`method]:"verifymessage";
+  body[`params]:(address;signature;message);
+  .bitcoind.request[body]
+ }
+
+
 \d .
