@@ -391,6 +391,14 @@ importprivkey:{[privateKey;account;rescan]
  }
 
 
+listaccounts:{[minconf;include_watchonly]
+  body:defaultPayload[];
+  body[`method]:"listaccounts";
+  body[`params]:`minconf`include_watchonly!(minconf;include_watchonly);
+  .bitcoind.request[body]
+ }
+
+
 listbanned:{[]
   body:defaultPayload[];
   body[`method]:"listbanned";
