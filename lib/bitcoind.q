@@ -292,10 +292,10 @@ getnetworkinfo:{[]
  }
 
 
-getnewaddress:{[account]
+getnewaddress:{[account;address_type]
   body:defaultPayload[];
   body[`method]:"getnewaddress";
-  body[`params]:(enlist `account)!(enlist account);
+  body[`params]:(`account`address_type)!(account;address_type);
   .bitcoind.request[body]
  }
 
@@ -379,6 +379,14 @@ help:{[command]
   body:defaultPayload[];
   body[`method]:"help";
   body[`params]:(enlist `command)!(enlist command);
+  .bitcoind.request[body]
+ }
+
+
+importaddress:{[address;label;rescan;p2sh]
+  body:defaultPayload[];
+  body[`method]:"importaddress";
+  body[`params]:`address`label`rescan`p2sh!(address;label;rescan;p2sh);
   .bitcoind.request[body]
  }
 
