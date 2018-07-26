@@ -33,7 +33,7 @@ The library can then be loaded directly into a q session using the command below
 You can confirm the library is loaded correctly by checking that the .bitcoind namespace is present in the q session.
 
 ```C++
-    $q $QBITCOIND_HOME/lib/bitcoindLoad.q
+    $q $QBITCOIND_HOME/lib/load.q
     q)key `
     `q`Q`h`j`o`util`bitcoind   // .bitcoind namespace loaded
 ```
