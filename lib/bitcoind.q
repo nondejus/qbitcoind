@@ -414,6 +414,14 @@ listbanned:{[]
  }
 
 
+listunspent:{[minconf;maxconf;addresses]
+  body:defaultPayload[];
+  body[`method]:"listunspent";
+  body[`params]:`minconf`maxconf`addresses!(minconf;maxconf;addresses);
+  .bitcoind.request[body]
+ }
+
+
 ping:{[]
   body:defaultPayload[];
   body[`method]:"ping";
