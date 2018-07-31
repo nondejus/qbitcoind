@@ -173,12 +173,17 @@ getbestblockhash:{[]
  }
 
 
-getblock:{[blockhash;verbose]
+getblock:('[{[args]
+  supportedArgs:(`blockhash`verbose);
+  optionalDefaults:(enlist `verbose)!(enlist 1b);   
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];   
+  input:supportedArgs xcols optionalDefaults,(!) . (numInputs:count args)#'(supportedArgs;args); 
   body:.bitcoind.defaultPayload[];
   body[`method]:"getblock";
-  body[`params]:`blockhash`verbose!(blockhash;verbose);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 getblockchaininfo:{[]
