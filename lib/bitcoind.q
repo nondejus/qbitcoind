@@ -24,7 +24,7 @@ defaultPayload:{
 
 
 abandontransaction:{[txid]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"abandontransaction";
   body[`params]:(enlist `txid)!(enlist txid);
   .bitcoind.request[body]
@@ -40,7 +40,7 @@ addmultisigaddress:{[nrequired;Keys;account;address_type]
 
 
 addnode:{[hostandport;command]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"addnode";
   body[`params]:(`node`command)!(hostandport;command);
   .bitcoind.request[body]
@@ -48,7 +48,7 @@ addnode:{[hostandport;command]
 
 
 addwitnessaddress:{[address]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"addwitnessaddress";
   body[`params]:(enlist `address)!(enlist address);
   .bitcoind.request[body]
@@ -56,7 +56,7 @@ addwitnessaddress:{[address]
 
 
 backupwallet:{[destination]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"backupwallet";
   body[`params]:(enlist `destination)!(enlist destination);
   .bitcoind.request[body]
@@ -64,7 +64,7 @@ backupwallet:{[destination]
 
 
 bumpfee:{[txid]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"bumpfee";
   body[`params]:(enlist `txid)!(enlist txid);
   .bitcoind.request[body]
@@ -72,7 +72,7 @@ bumpfee:{[txid]
 
 
 clearbanned:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"clearbanned";
   .bitcoind.request[body]
  }
@@ -103,7 +103,7 @@ decodescript:{[hexstring]
 
 
 disconnectnode:{[hostandport]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"disconnectnode";
   body[`params]:(enlist `address)!(enlist hostandport);
   .bitcoind.request[body]
@@ -111,7 +111,7 @@ disconnectnode:{[hostandport]
 
 
 dumpprivkey:{[address]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"dumpprivkey";
   body[`params]:(enlist `address)!(enlist address);
   .bitcoind.request[body]
@@ -119,7 +119,7 @@ dumpprivkey:{[address]
 
 
 dumpwallet:{[filename]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"dumpwallet";
   body[`params]:(enlist `filename)!(enlist filename);
   .bitcoind.request[body]
@@ -128,7 +128,7 @@ dumpwallet:{[filename]
 
 
 encryptwallet:{[passphrase]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"encryptwallet";
   body[`params]:(enlist `passphrase)!(enlist passphrase);
   .bitcoind.request[body]
@@ -136,7 +136,7 @@ encryptwallet:{[passphrase]
 
 
 getaccount:{[address]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getaccount";
   body[`params]:(enlist `address)!(enlist address);
   .bitcoind.request[body]
@@ -144,7 +144,7 @@ getaccount:{[address]
 
 
 getaddednodeinfo:{[dns]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getaddednodeinfo";
   .bitcoind.request[body]
  }
@@ -159,7 +159,7 @@ getaddressesbyaccount:{[account]
 
 
 getbalance:{[account]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getbalance";
   body[`params]:(enlist `account)!(enlist account);
   .bitcoind.request[body]
@@ -167,14 +167,14 @@ getbalance:{[account]
 
 
 getbestblockhash:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getbestblockhash";
   .bitcoind.request[body]
  }
 
 
 getblock:{[blockhash;verbose]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getblock";
   body[`params]:`blockhash`verbose!(blockhash;verbose);
   .bitcoind.request[body]
@@ -182,21 +182,21 @@ getblock:{[blockhash;verbose]
 
 
 getblockchaininfo:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getblockchaininfo";
   .bitcoind.request[body]
  }
 
 
 getblockcount:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getblockcount";
   .bitcoind.request[body]
  }
 
 
 getblockhash:{[index]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getblockhash";
   body[`params]:enlist index;
   .bitcoind.request[body]
@@ -204,7 +204,7 @@ getblockhash:{[index]
 
 
 getblockheader:{[blockhash;verbose]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getblockheader";
   body[`params]:`blockhash`verbose!(blockhash;verbose);
   .bitcoind.request[body]
@@ -212,7 +212,7 @@ getblockheader:{[blockhash;verbose]
 
 
 getblocktemplate:{[template_request]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getblocktemplate";
   body[`params]:(enlist `template_request)!(enlist template_request);
   .bitcoind.request[body]
@@ -220,35 +220,35 @@ getblocktemplate:{[template_request]
 
 
 getchaintips:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getchaintips";
   .bitcoind.request[body]
  }
 
 
 getconnectioncount:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getconnectioncount";
   .bitcoind.request[body]
  }
 
 
 getdifficulty:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getdifficulty";
   .bitcoind.request[body]
  }
 
 
 getmemoryinfo:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getmemoryinfo";
   .bitcoind.request[body]
  }
 
 
 getmempoolancestors:{[tx;verbose]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getmempoolancestors";
   body[`params]:`txid`verbose!(tx;verbose);
   .bitcoind.request[body]
@@ -256,7 +256,7 @@ getmempoolancestors:{[tx;verbose]
 
 
 getmempooldescendants:{[tx;verbose]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getmempooldescendants";
   body[`params]:`txid`verbose!(tx;verbose);
   .bitcoind.request[body]
@@ -264,7 +264,7 @@ getmempooldescendants:{[tx;verbose]
 
 
 getmempoolentry:{[txid]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getmempoolentry";
   body[`params]:(enlist `txid)!(enlist txid);
   .bitcoind.request[body]
@@ -272,28 +272,28 @@ getmempoolentry:{[txid]
 
 
 getmempoolinfo:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getmempoolinfo";
   .bitcoind.request[body]
  }
 
 
 getnettotals:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getnettotals";
   .bitcoind.request[body]
  }
 
 
 getnetworkinfo:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getnetworkinfo";
   .bitcoind.request[body]
  }
 
 
 getnewaddress:{[account;address_type]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getnewaddress";
   body[`params]:(`account`address_type)!(account;address_type);
   .bitcoind.request[body]
@@ -301,14 +301,14 @@ getnewaddress:{[account;address_type]
 
 
 getpeerinfo:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getpeerinfo";
   .bitcoind.request[body]
  }
 
 
 getrawchangeaddress:{[address_type]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getrawchangeaddress";
   body[`params]:(enlist `address_type)!(enlist address_type);
   .bitcoind.request[body]
@@ -316,14 +316,14 @@ getrawchangeaddress:{[address_type]
 
 
 getrawmempool:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getrawmempool";
   .bitcoind.request[body]
  }
 
 
 getrawtransaction:{[tx;verbose]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getrawtransaction";
   body[`params]:`txid`verbose!(tx;verbose);
   .bitcoind.request[body]
@@ -331,7 +331,7 @@ getrawtransaction:{[tx;verbose]
 
 
 gettransaction:{[tx]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"gettransaction";
   body[`params]:enlist tx;
   .bitcoind.request[body]
@@ -339,7 +339,7 @@ gettransaction:{[tx]
 
 
 gettxout:{[txid;index]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"gettxout";
   body[`params]:(`txid`n)!(txid;index);
   .bitcoind.request[body]
@@ -347,7 +347,7 @@ gettxout:{[txid;index]
 
 
 gettxoutproof:{[txid;hash]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"gettxoutproof";
   body[`params]:(`txid`hash)!(txid;hash);
   .bitcoind.request[body]
@@ -355,28 +355,28 @@ gettxoutproof:{[txid;hash]
 
 
 gettxoutsetinfo:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"gettxoutsetinfo";
   .bitcoind.request[body]
  }
 
 
 getunconfirmedbalance:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getunconfirmedbalance";
   .bitcoind.request[body]
  }
 
 
 getwalletinfo:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"getwalletinfo";
   .bitcoind.request[body]
  }
 
 
 help:{[command]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"help";
   body[`params]:(enlist `command)!(enlist command);
   .bitcoind.request[body]
@@ -384,7 +384,7 @@ help:{[command]
 
 
 importaddress:{[address;label;rescan;p2sh]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"importaddress";
   body[`params]:`address`label`rescan`p2sh!(address;label;rescan;p2sh);
   .bitcoind.request[body]
@@ -392,7 +392,7 @@ importaddress:{[address;label;rescan;p2sh]
 
 
 importprivkey:{[privateKey;account;rescan]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"importprivkey";
   body[`params]:`privkey`label`rescan!(privateKey;account;rescan);
   .bitcoind.request[body]
@@ -400,7 +400,7 @@ importprivkey:{[privateKey;account;rescan]
 
 
 listaccounts:{[minconf;include_watchonly]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"listaccounts";
   body[`params]:`minconf`include_watchonly!(minconf;include_watchonly);
   .bitcoind.request[body]
@@ -408,14 +408,14 @@ listaccounts:{[minconf;include_watchonly]
 
 
 listbanned:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"listbanned";
   .bitcoind.request[body]
  }
 
 
 listunspent:{[minconf;maxconf;addresses]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"listunspent";
   body[`params]:`minconf`maxconf`addresses!(minconf;maxconf;addresses);
   .bitcoind.request[body]
@@ -423,14 +423,14 @@ listunspent:{[minconf;maxconf;addresses]
 
 
 ping:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"ping";
   .bitcoind.request[body]
  }
 
 
 preciousblock:{[blockhash]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"preciousblock";
   body[`params]:(enlist `blockhash)!(enlist blockhash);
   .bitcoind.request[body]
@@ -438,7 +438,7 @@ preciousblock:{[blockhash]
 
 
 pruneblockchain:{[height]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"pruneblockchain";
   body[`params]:(enlist `height)!(enlist height);
   .bitcoind.request[body]
@@ -454,7 +454,7 @@ sendrawtransaction:{[hexstring;allowhighfees]
 
 
 setban:{[subnet;command;bantime;absolute]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"setban";
   body[`params]:`subnet`command`bantime`absolute!(subnet;command;bantime;absolute);
   .bitcoind.request[body]
@@ -462,7 +462,7 @@ setban:{[subnet;command;bantime;absolute]
 
 
 setnetworkactive:{[state]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"state";
   body[`params]:(enlist `state)!(enlist state);
   .bitcoind.request[body]
@@ -470,7 +470,7 @@ setnetworkactive:{[state]
 
 
 signmessage:{[address;message]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"signmessage";
   body[`params]:(`address`message)!(address;message);
   .bitcoind.request[body]
@@ -486,14 +486,14 @@ signrawtransaction:{[hexstring;prevtxs;privkeys;sighashtype]
 
 
 stop:{[]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"stop";
   .bitcoind.request[body]
  }
 
 
 walletpassphrase:{[passphrase;timeout]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"walletpassphrase";
   body[`params]:(`passphrase`timeout)!(passphrase;timeout);
   .bitcoind.request[body]
@@ -501,7 +501,7 @@ walletpassphrase:{[passphrase;timeout]
 
 
 verifychain:{[checklevel;nblocks]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"verifychain";
   body[`params]:(`checklevel`nblocks)!(checklevel;nblocks);
   .bitcoind.request[body]
@@ -509,7 +509,7 @@ verifychain:{[checklevel;nblocks]
 
 
 verifytxoutproof:{[proof]
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"verifytxoutproof";
   body[`params]:(enlist `proof)!(enlist proof);
   .bitcoind.request[body]
@@ -517,7 +517,7 @@ verifytxoutproof:{[proof]
 
 
 verifymessage:{[address;signature;message] 
-  body:defaultPayload[];
+  body:.bitcoind.defaultPayload[];
   body[`method]:"verifymessage";
   body[`params]:(address;signature;message);
   .bitcoind.request[body]
