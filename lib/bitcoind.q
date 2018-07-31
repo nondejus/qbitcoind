@@ -47,14 +47,6 @@ addnode:{[hostandport;command]
  }
 
 
-addwitnessaddress:{[address]
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"addwitnessaddress";
-  body[`params]:(enlist `address)!(enlist address);
-  .bitcoind.request[body]
- }
-
-
 backupwallet:{[destination]
   body:.bitcoind.defaultPayload[];
   body[`method]:"backupwallet";
