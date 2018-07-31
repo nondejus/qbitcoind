@@ -502,12 +502,17 @@ walletpassphrase:{[passphrase;timeout]
  }
 
 
-verifychain:{[checklevel;nblocks]
+verifychain:('[{[args]
+  supportedArgs:(`checklevel`nblocks);
+  optionalDefaults:(`checklevel`nblocks)!(3;6);
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:supportedArgs xcols optionalDefaults,(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"verifychain";
-  body[`params]:(`checklevel`nblocks)!(checklevel;nblocks);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 verifytxoutproof:{[proof]
