@@ -299,12 +299,17 @@ getnetworkinfo:{[]
  }
 
 
-getnewaddress:{[account;address_type]
+getnewaddress:('[{[args]
+  supportedArgs:`account`address_type;
+  optionalArgs:`account`address_type;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"getnewaddress";
-  body[`params]:(`account`address_type)!(account;address_type);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 getpeerinfo:{[]
