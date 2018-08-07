@@ -87,7 +87,8 @@ decoderawtransaction:('[{[args]
   body[`method]:"decoderawtransaction";
   body[`params]:`hexstring`iswitness!(hexstring;iswitness);
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 decodescript:{[hexstring]
