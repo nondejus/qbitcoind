@@ -78,7 +78,7 @@ createrawtransaction:{[inputs;outputs;locktime;replaceable]
  }
 
 
-decoderawtransaction:{[hexstring;iswitness]
+decoderawtransaction:('[{[args]
   supportedArgs:`hexstring`iswitness;
   optionalArgs:`iswitness;   
   if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];   
