@@ -85,7 +85,7 @@ decoderawtransaction:('[{[args]
   input:(!) . (numInputs:count args)#'(supportedArgs;args); 
   body:.bitcoind.defaultPayload[];
   body[`method]:"decoderawtransaction";
-  body[`params]:`hexstring`iswitness!(hexstring;iswitness);
+  body[`params]:input;
   .bitcoind.request[body]
   };enlist]
  )
