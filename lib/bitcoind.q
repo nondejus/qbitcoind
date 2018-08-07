@@ -167,9 +167,9 @@ getbestblockhash:{[]
 
 getblock:('[{[args]
   supportedArgs:(`blockhash`verbose);
-  optionalDefaults:(enlist `verbose)!(enlist 1b);   
+  optionalArgs:`verbose;   
   if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];   
-  input:supportedArgs xcols optionalDefaults,(!) . (numInputs:count args)#'(supportedArgs;args); 
+  input:(!) . (numInputs:count args)#'(supportedArgs;args); 
   body:.bitcoind.defaultPayload[];
   body[`method]:"getblock";
   body[`params]:input;
@@ -202,9 +202,9 @@ getblockhash:{[index]
 
 getblockheader:('[{[args]
   supportedArgs:(`blockhash`verbose);
-  optionalDefaults:(enlist `verbose)!(enlist 1b);
+  optionalDefaults:`verbose;
   if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:supportedArgs xcols optionalDefaults,(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"getblockheader";
   body[`params]:input;
@@ -504,9 +504,9 @@ walletpassphrase:{[passphrase;timeout]
 
 verifychain:('[{[args]
   supportedArgs:(`checklevel`nblocks);
-  optionalDefaults:(`checklevel`nblocks)!(3;6);
+  optionalDefaults:`checklevel`nblocks;
   if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:supportedArgs xcols optionalDefaults,(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"verifychain";
   body[`params]:input;
