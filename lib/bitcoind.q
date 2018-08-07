@@ -79,6 +79,10 @@ createrawtransaction:{[inputs;outputs;locktime;replaceable]
 
 
 decoderawtransaction:{[hexstring;iswitness]
+  supportedArgs:`hexstring`iswitness;
+  optionalArgs:`iswitness;   
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];   
+  input:(!) . (numInputs:count args)#'(supportedArgs;args); 
   body:.bitcoind.defaultPayload[];
   body[`method]:"decoderawtransaction";
   body[`params]:`hexstring`iswitness!(hexstring;iswitness);
@@ -166,7 +170,7 @@ getbestblockhash:{[]
 
 
 getblock:('[{[args]
-  supportedArgs:(`blockhash`verbose);
+  supportedArgs:`blockhash`verbose;
   optionalArgs:`verbose;   
   if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];   
   input:(!) . (numInputs:count args)#'(supportedArgs;args); 
@@ -201,7 +205,7 @@ getblockhash:{[index]
 
 
 getblockheader:('[{[args]
-  supportedArgs:(`blockhash`verbose);
+  supportedArgs:`blockhash`verbose;
   optionalDefaults:`verbose;
   if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
   input:(!) . (numInputs:count args)#'(supportedArgs;args);
@@ -503,7 +507,7 @@ walletpassphrase:{[passphrase;timeout]
 
 
 verifychain:('[{[args]
-  supportedArgs:(`checklevel`nblocks);
+  supportedArgs:`checklevel`nblocks;
   optionalDefaults:`checklevel`nblocks;
   if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
   input:(!) . (numInputs:count args)#'(supportedArgs;args);
