@@ -254,20 +254,30 @@ getmemoryinfo:{[]
  }
 
 
-getmempoolancestors:{[tx;verbose]
+getmempoolancestors:('[{[args]
+  supportedArgs:`txid`verbose;
+  optionalArgs:`verbose;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"getmempoolancestors";
-  body[`params]:`txid`verbose!(tx;verbose);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getmempooldescendants:{[tx;verbose]
+getmempooldescendants:('[{[args]
+  supportedArgs:`txid`verbose;
+  optionalArgs:`verbose;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"getmempooldescendants";
-  body[`params]:`txid`verbose!(tx;verbose);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 getmempoolentry:{[txid]
