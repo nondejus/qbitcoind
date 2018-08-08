@@ -457,12 +457,17 @@ pruneblockchain:{[height]
  }
 
 
-sendrawtransaction:{[hexstring;allowhighfees]
+sendrawtransaction:('[{[args]
+  supportedArgs:`hexstring`allowhighfees;
+  optionalArgs:`allowhighfees;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"sendrawtransaction";
-  body[`params]:(`hexstring`allowhighfees)!(hexstring;allowhighfees);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 setban:('[{[args]
