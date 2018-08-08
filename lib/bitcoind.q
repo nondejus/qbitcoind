@@ -403,12 +403,17 @@ importaddress:{[address;label;rescan;p2sh]
  }
 
 
-importprivkey:{[privateKey;account;rescan]
+importprivkey:('[{[args]
+  supportedArgs:`privkey`label`rescan;
+  optionalArgs:`label`rescan;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"importprivkey";
-  body[`params]:`privkey`label`rescan!(privateKey;account;rescan);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 listaccounts:{[minconf;include_watchonly]
