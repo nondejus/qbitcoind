@@ -395,12 +395,17 @@ help:{[command]
  }
 
 
-importaddress:{[address;label;rescan;p2sh]
+importaddress:('[{[args]
+  supportedArgs:`address`label`rescan`p2sh;
+  optionalArgs:`label`rescan`p2sh;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"importaddress";
-  body[`params]:`address`label`rescan`p2sh!(address;label;rescan;p2sh);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 importprivkey:('[{[args]
