@@ -465,12 +465,17 @@ sendrawtransaction:{[hexstring;allowhighfees]
  }
 
 
-setban:{[subnet;command;bantime;absolute]
+setban:('[{[args]
+  supportedArgs:`subnet`command`bantime`absolute;
+  optionalArgs:`bantime`absolute;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"setban";
-  body[`params]:`subnet`command`bantime`absolute!(subnet;command;bantime;absolute);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 setnetworkactive:{[state]
