@@ -431,12 +431,17 @@ importprivkey:('[{[args]
  )
 
 
-listaccounts:{[minconf;include_watchonly]
+listaccounts:('[{[args]
+  supportedArgs:`minconf`include_watchonly;
+  optionalArgs:`minconf`include_watchonly;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"listaccounts";
-  body[`params]:`minconf`include_watchonly!(minconf;include_watchonly);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 listbanned:{[]
