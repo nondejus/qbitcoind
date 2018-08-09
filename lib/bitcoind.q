@@ -75,12 +75,17 @@ clearbanned:{[]
  }
 
 
-createrawtransaction:{[inputs;outputs;locktime;replaceable]
+createrawtransaction:('[{[args]
+  supportedArgs:`inputs`outputs`locktime`replaceable;
+  optionalArgs:`locktime`replaceable;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"createrawtransaction";
-  body[`params]:`inputs`outputs`locktime`replaceable!(inputs;outputs;locktime;replaceable);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 decoderawtransaction:('[{[args]
