@@ -31,12 +31,17 @@ abandontransaction:{[txid]
  }
 
 
-addmultisigaddress:{[nrequired;Keys;account;address_type]
+addmultisigaddress:('[{[args]
+  supportedArgs:`nrequired`keys`account`address_type;
+  optionalArgs:`account`address_type;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"addmultisigaddress";
-  body[`params]:(`nrequired`keys`account`address_type)!(nrequired;Keys;account;address_type);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 addnode:{[hostandport;command]
