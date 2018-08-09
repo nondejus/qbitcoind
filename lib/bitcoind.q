@@ -534,12 +534,17 @@ signmessage:{[address;message]
  }
 
 
-signrawtransaction:{[hexstring;prevtxs;privkeys;sighashtype]
+signrawtransaction:('[{[args]
+  supportedArgs:`hexstring`prevtxs`privkeys`sighashtype;
+  optionalDefaults:`prevtxs`privkeys`sighashtype;;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"signrawtransaction";
-  body[`params]:`hexstring`prevtxs`privkeys`sighashtype!(hexstring;prevtxs;privkeys;sighashtype);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 stop:{[]
