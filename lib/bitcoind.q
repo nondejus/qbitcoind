@@ -330,6 +330,17 @@ getrawtransaction:{[tx;verbose]
  }
 
 
+batch_getrawtransactions:{[txids;verbose]
+  body:{[tx;version;verbose]
+    body:.bitcoind.defaultPayload[];
+    body[`id]:version;body[`method]:"getrawtransaction";
+    body[`params]:`txid`verbose!(tx;verbose);
+    body
+  }'[txids;til count txids;(count txids)#verbose];
+  .bitcoind.request body
+ }
+
+
 gettransaction:{[tx]
   body:.bitcoind.defaultPayload[];
   body[`method]:"gettransaction";
