@@ -361,15 +361,6 @@ getrawtransaction:{[tx;verbose]
   .bitcoind.request[body]
  }
 
-batch_getrawtransactions:{[txids;verbose]
-  body:{[tx;version;verbose]
-    body:.bitcoind.defaultPayload[];
-    body[`id]:version;body[`method]:"getrawtransaction";
-    body[`params]:`txid`verbose!(tx;verbose);
-    body
-  }'[txids;til count txids;(count txids)#verbose];
-  .bitcoind.request body
- }
 
 batch_getrawtransactions:('[{[args]
   supportedArgs:`txids`verbose;
@@ -387,16 +378,17 @@ batch_getrawtransactions:('[{[args]
  )
 
 
-
-
-
-
-gettransaction:{[tx]
+gettransaction:('[{[args]
+  supportedArgs:`txid`include_watchonly;
+  optionalArgs:`include_watchonly;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"gettransaction";
-  body[`params]:enlist tx;
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 gettxout:{[txid;index]
