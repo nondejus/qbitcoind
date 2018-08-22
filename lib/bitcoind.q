@@ -341,10 +341,10 @@ batch_getrawtransactions:{[txids;verbose]
  }
 
 
-gettransaction:{[tx]
+gettransaction:{[txid;include_watchonly]
   body:.bitcoind.defaultPayload[];
   body[`method]:"gettransaction";
-  body[`params]:enlist tx;
+  body[`params]:`txid`include_watchonly!(txid;include_watchonly);
   .bitcoind.request[body]
  }
 
