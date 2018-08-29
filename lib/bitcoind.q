@@ -359,12 +359,17 @@ getrawmempool:{[]
  }
 
 
-getrawtransaction:{[tx;verbose]
+getrawtransaction:('[{[args]
+  supportedArgs:`txid`verbose`blockhash;
+  optionalArgs:`verbose`blockhash;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"getrawtransaction";
-  body[`params]:`txid`verbose!(tx;verbose);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 batch_getrawtransactions:('[{[args]
