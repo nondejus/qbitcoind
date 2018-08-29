@@ -165,12 +165,17 @@ getaddressesbyaccount:{[account]
  }
 
 
-getbalance:{[account]
+getbalance:('[{[args]
+  supportedArgs:`account`minconf`include_watchonly;
+  optionalArgs:`account`minconf`include_watchonly;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
   body:.bitcoind.defaultPayload[];
   body[`method]:"getbalance";
-  body[`params]:(enlist `account)!(enlist account);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 getbestblockhash:{[]
