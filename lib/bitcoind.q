@@ -536,6 +536,19 @@ sendrawtransaction:('[{[args]
  )
 
 
+sendtoaddress:('[{[args]
+  supportedArgs:`address`amount`comment`comment_to`subtractfeefromamount`replaceable`conf_target`estimate_mode;
+  optionalArgs:`comment`comment_to`subtractfeefromamount`replaceable`conf_target`estimate_mode;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"sendtoaddress";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 setban:('[{[args]
   supportedArgs:`subnet`command`bantime`absolute;
   optionalArgs:`bantime`absolute;
