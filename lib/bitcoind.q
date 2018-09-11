@@ -499,6 +499,19 @@ listbanned:{[]
  }
 
 
+listtransactions:('[{[args]
+  supportedArgs:`account`count`skip`include_watchonly;
+  optionalArgs:`account`count`skip`include_watchonly;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"listtransactions";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 listunspent:{[minconf;maxconf;addresses]
   body:.bitcoind.defaultPayload[];
   body[`method]:"listunspent";
