@@ -418,6 +418,13 @@ listaccounts:{[minconf;include_watchonly]
  }
 
 
+listaddressgroupings:{[]
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"listaddressgroupings";
+  .bitcoind.request[body]
+ }
+
+
 listbanned:{[]
   body:.bitcoind.defaultPayload[];
   body[`method]:"listbanned";
