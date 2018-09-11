@@ -510,6 +510,13 @@ stop:{[]
  }
 
 
+walletlock:{[]
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"walletlock";
+  .bitcoind.request[body]
+ }
+
+
 walletpassphrase:{[passphrase;timeout]
   body:.bitcoind.defaultPayload[];
   body[`method]:"walletpassphrase";
