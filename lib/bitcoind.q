@@ -500,6 +500,13 @@ listunspent:{[minconf;maxconf;addresses]
  }
 
 
+listwallets:{[]
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"listwallets";
+  .bitcoind.request[body]
+ }
+
+
 ping:{[]
   body:.bitcoind.defaultPayload[];
   body[`method]:"ping";
