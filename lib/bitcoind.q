@@ -372,6 +372,19 @@ getrawtransaction:('[{[args]
  )
 
 
+getrawtransaction:('[{[args]
+  supportedArgs:`txid`verbose`blockhash;
+  optionalArgs:`verbose`blockhash;
+  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
+  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getrawtransaction";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 batch_getrawtransactions:('[{[args]
   supportedArgs:`txids`verbose;
   optionalArgs:`verbose;
@@ -386,7 +399,7 @@ batch_getrawtransactions:('[{[args]
   .bitcoind.request[body]
   };enlist]
  )
-
+  
 
 gettransaction:('[{[args]
   supportedArgs:`txid`include_watchonly;
@@ -399,8 +412,8 @@ gettransaction:('[{[args]
   .bitcoind.request[body]
   };enlist]
  )
-
-
+  
+  
 gettxout:{[txid;index]
   body:.bitcoind.defaultPayload[];
   body[`method]:"gettxout";
@@ -483,6 +496,13 @@ listaccounts:('[{[args]
   .bitcoind.request[body]
   };enlist]
  )
+
+
+listaddressgroupings:{[]
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"listaddressgroupings";
+  .bitcoind.request[body]
+ }
 
 
 listaddressgroupings:{[]
