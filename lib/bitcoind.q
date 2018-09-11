@@ -518,6 +518,14 @@ walletpassphrase:{[passphrase;timeout]
  }
 
 
+walletpassphrasechange:{[oldpassphrase;newpassphrase]
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"walletpassphrasechange";
+  body[`params]:`oldpassphrase`newpassphrase!(oldpassphrase;newpassphrase);
+  .bitcoind.request[body]
+ }
+
+
 verifychain:{[checklevel;nblocks]
   body:.bitcoind.defaultPayload[];
   body[`method]:"verifychain";
