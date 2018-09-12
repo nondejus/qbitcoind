@@ -26,7 +26,7 @@ defaultPayload:{
 parseArgs:{[args;requiredArgs;optionalArgs]
   if[(::)~first args;args:()];
   if[(0~count requiredArgs) & (0~count optionalArgs) & (0<count args);-1"No required arguments";:`error];
-  if[not (a:count args) in (0;(count optionalArgs))+c:(count requiredArgs);-1"There are too ",$[a<min c;"few";"many"]," arguments";:`error];
+  if[not (a:count args) in (0;($[count optionalArgs;1;0]))+c:(count requiredArgs);-1"There are too ",$[a<min c;"few";"many"]," arguments";:`error];
   requiredInput:$[`~requiredArgs;();(!) . (count requiredArgs)#'(requiredArgs;args)];
   if[((count args)>(count requiredArgs)) & not 99h~type last args;-1"Optional args not a dict";:`error];
   optionalInput:$[(count args)>(count requiredArgs);last args;()];
