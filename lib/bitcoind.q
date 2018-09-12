@@ -23,19 +23,35 @@ defaultPayload:{
  }
 
 
-abandontransaction:{[txid]
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"abandontransaction";
-  body[`params]:(enlist `txid)!(enlist txid);
-  .bitcoind.request[body]
+parseArgs:{[args;requiredArgs;optionalArgs]
+  if[(::)~first args;args:()];
+  if[(0~count requiredArgs) & (0~count optionalArgs) & (0<count args);-1"No required arguments";:`error];
+  if[not (a:count args) in (0;($[count optionalArgs;1;0]))+c:(count requiredArgs);-1"There are too ",$[a<min c;"few";"many"]," arguments";:`error];
+  requiredInput:$[`~requiredArgs;();(!) . (count requiredArgs)#'(requiredArgs;args)];
+  if[((count args)>(count requiredArgs)) & not 99h~type last args;-1"Optional args not a dict";:`error];
+  optionalInput:$[(count args)>(count requiredArgs);last args;()];
+  requiredInput,optionalInput
  }
 
 
+abandontransaction:('[{[args]
+  requiredArgs:`txid;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"abandontransaction";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 addmultisigaddress:('[{[args]
-  supportedArgs:`nrequired`keys`account`address_type;
+  requiredArgs:`nrequired`keys;
   optionalArgs:`account`address_type;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"addmultisigaddress";
   body[`params]:input;
@@ -44,42 +60,63 @@ addmultisigaddress:('[{[args]
  )
 
 
-addnode:{[hostandport;command]
+addnode:('[{[args]
+  requiredArgs:`node`command;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"addnode";
-  body[`params]:(`node`command)!(hostandport;command);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-backupwallet:{[destination]
+backupwallet:('[{[args]
+  requiredArgs:`destination;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"backupwallet";
-  body[`params]:(enlist `destination)!(enlist destination);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-bumpfee:{[txid]
+bumpfee:('[{[args]
+  requiredArgs:`txid;
+  optionalArgs:`options;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"bumpfee";
-  body[`params]:(enlist `txid)!(enlist txid);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-clearbanned:{[]
+clearbanned:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"clearbanned";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 createrawtransaction:('[{[args]
-  supportedArgs:`inputs`outputs`locktime`replaceable;
+  requiredArgs:`inputs`outputs;
   optionalArgs:`locktime`replaceable;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"createrawtransaction";
   body[`params]:input;
@@ -89,10 +126,10 @@ createrawtransaction:('[{[args]
 
 
 decoderawtransaction:('[{[args]
-  supportedArgs:`hexstring`iswitness;
+  requiredArgs:`hexstring;
   optionalArgs:`iswitness;   
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];   
-  input:(!) . (numInputs:count args)#'(supportedArgs;args); 
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"decoderawtransaction";
   body[`params]:input;
@@ -101,75 +138,115 @@ decoderawtransaction:('[{[args]
  )
 
 
-decodescript:{[hexstring]
+decodescript:('[{[args]
+  requiredArgs:`hexstring;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"decodescript";
-  body[`params]:(enlist `hexstring)!(enlist hexstring);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-disconnectnode:{[hostandport]
+disconnectnode:('[{[args]
+  requiredArgs:();
+  optionalArgs:`address`nodeid;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"disconnectnode";
-  body[`params]:(enlist `address)!(enlist hostandport);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-dumpprivkey:{[address]
+dumpprivkey:('[{[args]
+  requiredArgs:`address;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"dumpprivkey";
-  body[`params]:(enlist `address)!(enlist address);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-dumpwallet:{[filename]
+dumpwallet:('[{[args]
+  requiredArgs:`filename;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"dumpwallet";
-  body[`params]:(enlist `filename)!(enlist filename);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-
-encryptwallet:{[passphrase]
+encryptwallet:('[{[args]
+  requiredArgs:`passphrase;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"encryptwallet";
-  body[`params]:(enlist `passphrase)!(enlist passphrase);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getaccount:{[address]
+getaccount:('[{[args]
+  requiredArgs:`address;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getaccount";
-  body[`params]:(enlist `address)!(enlist address);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getaddednodeinfo:{[dns]
+getaddednodeinfo:('[{[args]
+  requiredArgs:`node;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getaddednodeinfo";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getaddressesbyaccount:{[account]
+getaddressesbyaccount:('[{[args]
+  requiredArgs:`account;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getaddressesbyaccount";
-  body[`params]:(enlist `account)!(enlist account);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 getbalance:('[{[args]
-  supportedArgs:`account`minconf`include_watchonly;
+  requiredArgs:();
   optionalArgs:`account`minconf`include_watchonly;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getbalance";
   body[`params]:input;
@@ -178,18 +255,24 @@ getbalance:('[{[args]
  )
 
 
-getbestblockhash:{[]
+getbestblockhash:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getbestblockhash";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 getblock:('[{[args]
-  supportedArgs:`blockhash`verbose;
-  optionalArgs:`verbose;   
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];   
-  input:(!) . (numInputs:count args)#'(supportedArgs;args); 
+  requiredArgs:`blockhash;
+  optionalArgs:`verbosity;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getblock";
   body[`params]:input;
@@ -198,33 +281,50 @@ getblock:('[{[args]
  )
 
 
-getblockchaininfo:{[]
+getblockchaininfo:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getblockchaininfo";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getblockcount:{[]
+getblockcount:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getblockcount";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getblockhash:{[index]
+getblockhash:('[{[args]
+  requiredArgs:`height;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getblockhash";
-  body[`params]:enlist index;
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 getblockheader:('[{[args]
-  supportedArgs:`blockhash`verbose;
-  optionalDefaults:`verbose;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  requiredArgs:`blockhash;
+  optionalArgs:`verbose;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getblockheader";
   body[`params]:input;
@@ -233,47 +333,76 @@ getblockheader:('[{[args]
  )
 
 
-getblocktemplate:{[template_request]
+getblocktemplate:('[{[args]
+  requiredArgs:`template_request;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getblocktemplate";
-  body[`params]:(enlist `template_request)!(enlist template_request);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getchaintips:{[]
+getchaintips:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getchaintips";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getconnectioncount:{[]
+getconnectioncount:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getconnectioncount";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getdifficulty:{[]
+getdifficulty:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getdifficulty";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getmemoryinfo:{[]
+getmemoryinfo:('[{[args]
+  requiredArgs:();
+  optionalArgs:`mode;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getmemoryinfo";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 getmempoolancestors:('[{[args]
-  supportedArgs:`txid`verbose;
+  requiredArgs:`txid;
   optionalArgs:`verbose;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getmempoolancestors";
   body[`params]:input;
@@ -283,10 +412,10 @@ getmempoolancestors:('[{[args]
 
 
 getmempooldescendants:('[{[args]
-  supportedArgs:`txid`verbose;
+  requiredArgs:`txid;
   optionalArgs:`verbose;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getmempooldescendants";
   body[`params]:input;
@@ -295,40 +424,63 @@ getmempooldescendants:('[{[args]
  )
 
 
-getmempoolentry:{[txid]
+getmempoolentry:('[{[args]
+  requiredArgs:`txid;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getmempoolentry";
-  body[`params]:(enlist `txid)!(enlist txid);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getmempoolinfo:{[]
+getmempoolinfo:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getmempoolinfo";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getnettotals:{[]
+getnettotals:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getnettotals";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getnetworkinfo:{[]
+getnetworkinfo:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getnetworkinfo";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 getnewaddress:('[{[args]
-  supportedArgs:`account`address_type;
+  requiredArgs:();
   optionalArgs:`account`address_type;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getnewaddress";
   body[`params]:input;
@@ -337,35 +489,39 @@ getnewaddress:('[{[args]
  )
 
 
-getpeerinfo:{[]
+getpeerinfo:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getpeerinfo";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getrawchangeaddress:{[address_type]
+getrawchangeaddress:('[{[args]
+  requiredArgs:();
+  optionalArgs:`address_type;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getrawchangeaddress";
-  body[`params]:(enlist `address_type)!(enlist address_type);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getrawmempool:{[]
+getrawmempool:('[{[args]
+  requiredArgs:();
+  optionalArgs:`verbose;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getrawmempool";
-  .bitcoind.request[body]
- }
-
-
-getrawtransaction:('[{[args]
-  supportedArgs:`txid`verbose`blockhash;
-  optionalArgs:`verbose`blockhash;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"getrawtransaction";
   body[`params]:input;
   .bitcoind.request[body]
   };enlist]
@@ -373,10 +529,10 @@ getrawtransaction:('[{[args]
 
 
 getrawtransaction:('[{[args]
-  supportedArgs:`txid`verbose`blockhash;
+  requiredArgs:`txid;
   optionalArgs:`verbose`blockhash;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getrawtransaction";
   body[`params]:input;
@@ -399,71 +555,104 @@ batch_getrawtransactions:('[{[args]
   .bitcoind.request[body]
   };enlist]
  )
-  
+
 
 gettransaction:('[{[args]
-  supportedArgs:`txid`include_watchonly;
+  requiredArgs:`txid;
   optionalArgs:`include_watchonly;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"gettransaction";
   body[`params]:input;
   .bitcoind.request[body]
   };enlist]
  )
-  
-  
-gettxout:{[txid;index]
+
+
+gettxout:('[{[args]
+  requiredArgs:`txid`n;
+  optionalArgs:`include_mempool;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"gettxout";
-  body[`params]:(`txid`n)!(txid;index);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-gettxoutproof:{[txid;hash]
+gettxoutproof:('[{[args]
+  requiredArgs:`txids;
+  optionalArgs:`blockhash;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"gettxoutproof";
-  body[`params]:(`txid`hash)!(txid;hash);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-gettxoutsetinfo:{[]
+gettxoutsetinfo:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"gettxoutsetinfo";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getunconfirmedbalance:{[]
+getunconfirmedbalance:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getunconfirmedbalance";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-getwalletinfo:{[]
+getwalletinfo:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getwalletinfo";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-help:{[command]
+help:('[{[args]
+  requiredArgs:();
+  optionalArgs:`command;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"help";
-  body[`params]:(enlist `command)!(enlist command);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 importaddress:('[{[args]
-  supportedArgs:`address`label`rescan`p2sh;
+  requiredArgs:`address;
   optionalArgs:`label`rescan`p2sh;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"importaddress";
   body[`params]:input;
@@ -473,10 +662,10 @@ importaddress:('[{[args]
 
 
 importprivkey:('[{[args]
-  supportedArgs:`privkey`label`rescan;
+  requiredArgs:`privkey;
   optionalArgs:`label`rescan;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"importprivkey";
   body[`params]:input;
@@ -486,10 +675,10 @@ importprivkey:('[{[args]
 
 
 listaccounts:('[{[args]
-  supportedArgs:`minconf`include_watchonly;
+  requiredArgs:();
   optionalArgs:`minconf`include_watchonly;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"listaccounts";
   body[`params]:input;
@@ -498,32 +687,37 @@ listaccounts:('[{[args]
  )
 
 
-listaddressgroupings:{[]
+listaddressgroupings:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"listaddressgroupings";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-listaddressgroupings:{[]
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"listaddressgroupings";
-  .bitcoind.request[body]
- }
-
-
-listbanned:{[]
+listbanned:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"listbanned";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 listtransactions:('[{[args]
-  supportedArgs:`account`count`skip`include_watchonly;
+  requiredArgs:();
   optionalArgs:`account`count`skip`include_watchonly;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"listtransactions";
   body[`params]:input;
@@ -532,49 +726,76 @@ listtransactions:('[{[args]
  )
 
 
-listunspent:{[minconf;maxconf;addresses]
+listunspent:('[{[args]
+  requiredArgs:();
+  optionalArgs:`minconf`maxconf`addresses`include_unsafe`query_options;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"listunspent";
-  body[`params]:`minconf`maxconf`addresses!(minconf;maxconf;addresses);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-listwallets:{[]
+listwallets:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"listwallets";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-ping:{[]
+ping:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"ping";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-preciousblock:{[blockhash]
+preciousblock:('[{[args]
+  requiredArgs:`blockhash;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"preciousblock";
-  body[`params]:(enlist `blockhash)!(enlist blockhash);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-pruneblockchain:{[height]
+pruneblockchain:('[{[args]
+  requiredArgs:`height;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"pruneblockchain";
-  body[`params]:(enlist `height)!(enlist height);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 sendrawtransaction:('[{[args]
-  supportedArgs:`hexstring`allowhighfees;
+  requiredArgs:`hexstring;
   optionalArgs:`allowhighfees;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"sendrawtransaction";
   body[`params]:input;
@@ -584,10 +805,10 @@ sendrawtransaction:('[{[args]
 
 
 sendtoaddress:('[{[args]
-  supportedArgs:`address`amount`comment`comment_to`subtractfeefromamount`replaceable`conf_target`estimate_mode;
+  requiredArgs:`address`amount;
   optionalArgs:`comment`comment_to`subtractfeefromamount`replaceable`conf_target`estimate_mode;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"sendtoaddress";
   body[`params]:input;
@@ -597,10 +818,10 @@ sendtoaddress:('[{[args]
 
 
 setban:('[{[args]
-  supportedArgs:`subnet`command`bantime`absolute;
+  requiredArgs:`subnet`command;
   optionalArgs:`bantime`absolute;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"setban";
   body[`params]:input;
@@ -609,27 +830,37 @@ setban:('[{[args]
  )
 
 
-setnetworkactive:{[state]
+setnetworkactive:('[{[args]
+  requiredArgs:`state;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
-  body[`method]:"state";
-  body[`params]:(enlist `state)!(enlist state);
+  body[`method]:"setnetworkactive";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-signmessage:{[address;message]
+signmessage:('[{[args]
+  requiredArgs:`address`message;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"signmessage";
-  body[`params]:(`address`message)!(address;message);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 signrawtransaction:('[{[args]
-  supportedArgs:`hexstring`prevtxs`privkeys`sighashtype;
-  optionalDefaults:`prevtxs`privkeys`sighashtype;;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  requiredArgs:`hexstring;
+  optionalArgs:`prevtxs`privkeys`sighashtype;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"signrawtransaction";
   body[`params]:input;
@@ -638,41 +869,63 @@ signrawtransaction:('[{[args]
  )
 
 
-stop:{[]
+stop:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"stop";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-walletlock:{[]
+walletlock:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"walletlock";
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-walletpassphrase:{[passphrase;timeout]
+walletpassphrase:('[{[args]
+  requiredArgs:`passphrase`timeout;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"walletpassphrase";
-  body[`params]:(`passphrase`timeout)!(passphrase;timeout);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-walletpassphrasechange:{[oldpassphrase;newpassphrase]
+walletpassphrasechange:('[{[args]
+  requiredArgs:`oldpassphrase`newpassphrase;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"walletpassphrasechange";
-  body[`params]:`oldpassphrase`newpassphrase!(oldpassphrase;newpassphrase);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 verifychain:('[{[args]
-  supportedArgs:`checklevel`nblocks;
-  optionalDefaults:`checklevel`nblocks;
-  if[(count supportedArgs)<count args;-1"Too Many input arguments";:()];
-  input:(!) . (numInputs:count args)#'(supportedArgs;args);
+  requiredArgs:();
+  optionalArgs:`checklevel`nblocks;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"verifychain";
   body[`params]:input;
@@ -681,20 +934,30 @@ verifychain:('[{[args]
  )
 
 
-verifytxoutproof:{[proof]
+verifytxoutproof:('[{[args]
+  requiredArgs:`proof;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"verifytxoutproof";
-  body[`params]:(enlist `proof)!(enlist proof);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
-verifymessage:{[address;signature;message] 
+verifymessage:('[{[args]
+  requiredArgs:`address`signature`message;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"verifymessage";
-  body[`params]:(address;signature;message);
+  body[`params]:input;
   .bitcoind.request[body]
- }
+  };enlist]
+ )
 
 
 \d .
