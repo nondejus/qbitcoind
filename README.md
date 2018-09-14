@@ -97,7 +97,40 @@ and a dictionary object containing a single key, error. No result key is returne
     Error: partial token at 1 .Q.hpbit returned:
     error| ""
 ```
-### Security: TLS Support
+### Required and Optional Arguments
+
+All functions in the API are set up to take required arguments and optional arguments.
+To list of optional and required arguments are given at the top of the function definition, as shown below.
+Required arguments can be passed to the function as atoms, but all optional arguments need to
+be passed using a dictionary. The use of a dictionary allows the user to specify some or all optional
+arguments.
+
+```C++
+sendtoaddress:('[{[args]
+  requiredArgs:`address`amount;
+  optionalArgs:`comment`comment_to`subtractfeefromamount`replaceable`conf_target`estimate_mode;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"sendtoaddress";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+```
+
+Example:
+
+```C++
+// No optional arguments
+q)sendtoaddress["1b...";1.0]   
+
+or
+
+// With optional arguments
+q)sendtoaddress["1b...";1.0;(`comment`replaceable)!("My 1st transaction";1b)]
+```
+
 
 
 ## Tests
