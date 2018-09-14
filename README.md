@@ -100,8 +100,8 @@ and a dictionary object containing a single key, error. No result key is returne
 ### Required and Optional Arguments
 
 All functions in the API are set up to take required arguments and optional arguments.
-To list of optional and required arguments are given at the top of the function definition, as shown below.
-Required arguments can be passed to the function as atoms, but all optional arguments need to
+The list of optional and required arguments are given at the top of the function definition, as shown below.
+Required arguments can be passed to the function as single elements, but all optional arguments need to
 be passed using a dictionary. The use of a dictionary allows the user to specify some or all optional
 arguments.
 
