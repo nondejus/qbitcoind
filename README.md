@@ -123,12 +123,12 @@ Example:
 
 ```C++
 // No optional arguments
-q)sendtoaddress["1b...";1.0]   
+q)sendtoaddress["1bNeg..";1.0]   
 
 or
 
 // With optional arguments
-q)sendtoaddress["1b...";1.0;(`comment`replaceable)!("My 1st transaction";1b)]
+q)sendtoaddress["1bNeg..";1.0;(`comment`replaceable)!("My 1st transaction";1b)]
 ```
 
 
