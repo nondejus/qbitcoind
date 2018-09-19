@@ -557,6 +557,19 @@ batch_getrawtransactions:('[{[args]
  )
 
 
+getreceivedbyaccount:('[{[args]
+  requiredArgs:`account`minconf;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getreceivedbyaccount";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 gettransaction:('[{[args]
   requiredArgs:`txid;
   optionalArgs:`include_watchonly;
