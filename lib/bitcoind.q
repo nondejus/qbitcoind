@@ -973,6 +973,19 @@ signmessage:('[{[args]
  )
 
 
+signmessagewithprivkey:('[{[args]
+  requiredArgs:`privkey`message;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"signmessagewithprivkey";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 signrawtransaction:('[{[args]
   requiredArgs:`hexstring;
   optionalArgs:`prevtxs`privkeys`sighashtype;
