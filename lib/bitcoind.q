@@ -778,6 +778,19 @@ listbanned:('[{[args]
  )
 
 
+listreceivedbyaddress:('[{[args]
+  requiredArgs:();
+  optionalArgs:`minconf`include_empty`include_watchonly;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"listreceivedbyaddress";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 listtransactions:('[{[args]
   requiredArgs:();
   optionalArgs:`account`count`skip`include_watchonly;
