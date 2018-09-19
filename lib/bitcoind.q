@@ -359,6 +359,19 @@ getchaintips:('[{[args]
  )
 
 
+getchaintxstats:('[{[args]
+  requiredArgs:();
+  optionalArgs:`nblocks`blockhash;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getchaintxstats";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 getconnectioncount:('[{[args]
   requiredArgs:();
   optionalArgs:();
