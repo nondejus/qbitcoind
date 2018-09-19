@@ -726,6 +726,19 @@ importprivkey:('[{[args]
  )
 
 
+importwallet:('[{[args]
+  requiredArgs:`filename;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"importwallet";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 listaccounts:('[{[args]
   requiredArgs:();
   optionalArgs:`minconf`include_watchonly;
