@@ -973,6 +973,19 @@ walletpassphrasechange:('[{[args]
  )
 
 
+uptime:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"uptime";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 verifychain:('[{[args]
   requiredArgs:();
   optionalArgs:`checklevel`nblocks;
