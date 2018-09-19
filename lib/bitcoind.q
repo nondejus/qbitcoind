@@ -476,6 +476,19 @@ getnettotals:('[{[args]
  )
 
 
+getnetworkhashps:('[{[args]
+  requiredArgs:();
+  optionalArgs:`nblocks`height;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getnetworkhashps";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 getnetworkinfo:('[{[args]
   requiredArgs:();
   optionalArgs:();
