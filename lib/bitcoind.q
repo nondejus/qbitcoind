@@ -713,6 +713,19 @@ importaddress:('[{[args]
  )
 
 
+importpubkey:('[{[args]
+  requiredArgs:`pubkey;
+  optionalArgs:`label`rescan;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"importpubkey";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 importprivkey:('[{[args]
   requiredArgs:`privkey;
   optionalArgs:`label`rescan;
