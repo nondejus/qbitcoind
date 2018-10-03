@@ -72,9 +72,10 @@ If it is hosted elsewhere, or listening on a different port, then run the follow
 If you are running *bitcoind*, it is recommended to secure the JSON-RPC API with a username and password, as shown below 
 ```C++
     ./bitcoind -daemon -rpcuser=<user> -rpcpassword=<password>
-     alternatively,
-    Add username and password credentials to the bitcoin.conf file, sample below
+````    
+alternatively, add username and password credentials to the bitcoin.conf file, sample below
     
+```C++    
     # Maintain a full transaction index, used by the getrawtransaction rpc call.
     txindex=1
     # [rpc]
@@ -82,8 +83,8 @@ If you are running *bitcoind*, it is recommended to secure the JSON-RPC API with
     server=1
     rpcuser=myusername
     rpcpassword=mypassword
-
 ```
+
 To ensure the authentication credentials are passed during all API calls initialise the username and password credentials using the initPass function
 ```C++
     q).bitcoind.initPass[username;password]
