@@ -921,6 +921,19 @@ preciousblock:('[{[args]
  )
 
 
+prioritisetransaction:('[{[args]
+  requiredArgs:`txid;
+  optionalArgs:`dummy`fee_delta;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"prioritisetransaction";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 pruneblockchain:('[{[args]
   requiredArgs:`height;
   optionalArgs:();
