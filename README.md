@@ -135,17 +135,14 @@ sendtoaddress:('[{[args]
 Example:
 
 ```C++
-// No optional arguments
+// No optional arguments, just the two required arguments
 q)sendtoaddress["1bNeg..";1.0]   
 
 or
 
-// With optional arguments
+// Two required arguments plus some optional arguments
 q)sendtoaddress["1bNeg..";1.0;(`comment`replaceable)!("My 1st transaction";1b)]
 ```
-
-
-## Tests
 
 
 ## License
