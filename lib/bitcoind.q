@@ -856,6 +856,19 @@ listwallets:('[{[args]
  )
 
 
+lockunspent:('[{[args]
+  requiredArgs:`unlock;
+  optionalArgs:`transactions;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"lockunspent";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 ping:('[{[args]
   requiredArgs:();
   optionalArgs:();
