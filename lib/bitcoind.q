@@ -1181,6 +1181,19 @@ uptime:('[{[args]
  )
 
 
+validateaddress:('[{[args]
+  requiredArgs:`address;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"validateaddress";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 verifychain:('[{[args]
   requiredArgs:();
   optionalArgs:`checklevel`nblocks;
