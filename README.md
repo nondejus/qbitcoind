@@ -1,14 +1,20 @@
 # qbitcoind
-Running Bitcoin (*bitcoind*) with the -server argument enables it to function as a HTTP JSON-RPC server.
-qbitcoind is a library used to interact with this JSON-RPC API from within a q session.
+This is a q library which enables communication with a running bitcoin core node and wallet, via http json-rpc messages.
+The library supports the vast majority of calls available using bitcoin-cli, see [Supported Functions](https://github.com/jlucid/qbitcoind/wiki/Supported-Functions).
 
+Running a Bitcoin node, *bitcoind*, with the -server argument enables it to function as a http json-rpc server.
 
 ## Functionality
-* [Control Commands](https://github.com/jlucid/qbitcoind/wiki/Control-RPCs)
-* [Block Chain Information](https://github.com/jlucid/qbitcoind/wiki/Block-chain-RPCs)
-* [Network Information](https://github.com/jlucid/qbitcoind/wiki/Network-RPCs)
-* [Wallet Management](https://github.com/jlucid/qbitcoind/wiki/Wallet)
-* [Raw Transaction Generation](https://github.com/jlucid/qbitcoind/wiki/Raw-Transaction-RPCs)
+
+For full list of supported RPC calls see [API List](https://github.com/jlucid/qbitcoind/wiki/Supported-Functions), and [Wiki](https://github.com/jlucid/qbitcoind/wiki/Address-Generation)
+
+Functions cover the following areas
+
+* Control Commands
+* Block Chain Information
+* Network Information
+* Wallet Management
+* Raw Transaction Generation
 
 ## Prerequisites
 
@@ -16,7 +22,7 @@ qbitcoind is a library used to interact with this JSON-RPC API from within a q s
 * [qutil](https://github.com/nugend/qutil) - Required if you wish to load the library using qutil.
   If not, an alternative method is provided. See below.
 * A bitcoin node for the library to communicate with. For install instructions see [Running a Full Node]( https://bitcoin.org/en/full-node).
-  Library within was written and tested against Bitcoin Core Daemon version v0.16.0.0-g4b4d7eb255
+* Library was written and tested against Bitcoin Core Daemon version v0.16.3.0-g49e34e288
 
 ## Installing
 
@@ -29,7 +35,8 @@ Next set the environmental variable QBITCOIND_HOME to where the qbitcoind folder
 ```
     $export QBITCOIND_HOME=/home/mygitrepos/qbitcoind/
 ```
-The library can then be loaded directly into a q session using the command below
+The library can then be loaded directly into a q session using the command below.
+
 You can confirm the library is loaded correctly by checking that the .bitcoind namespace is present in the q session.
 
 ```C++
@@ -65,9 +72,10 @@ If it is hosted elsewhere, or listening on a different port, then run the follow
 If you are running *bitcoind*, it is recommended to secure the JSON-RPC API with a username and password, as shown below 
 ```C++
     ./bitcoind -daemon -rpcuser=<user> -rpcpassword=<password>
-     alternatively,
-    Add username and password credentials to the bitcoin.conf file, sample below
+````    
+alternatively, add username and password credentials to the bitcoin.conf file, sample below
     
+```C++    
     # Maintain a full transaction index, used by the getrawtransaction rpc call.
     txindex=1
     # [rpc]
@@ -75,8 +83,8 @@ If you are running *bitcoind*, it is recommended to secure the JSON-RPC API with
     server=1
     rpcuser=myusername
     rpcpassword=mypassword
-
 ```
+
 To ensure the authentication credentials are passed during all API calls initialise the username and password credentials using the initPass function
 ```C++
     q).bitcoind.initPass[username;password]
@@ -99,7 +107,14 @@ and a dictionary object containing a single key, error. No result key is returne
 ```
 ### Required and Optional Arguments
 
-All functions in the API are set up to take required arguments and optional arguments.
+All functions in the API are set up to take either of the following
+ * No Arguments  (.bitcoind.getdifficulty)
+ * Single or multiple required arguments with no optional arguments (.bitcoind.getreceivedbyaccount)
+ * Single or multiple optional arguments with required arguments (.bitcoind.listaccounts)
+ * Single or multiple required arguments and Single or multiple optional arguments (.bitcoind.importprivkey)
+
+To handle this, functions are actually composites of the form f:('[{[args] };enlist])
+
 The list of optional and required arguments are given at the top of the function definition, as shown below.
 Required arguments can be passed to the function as single elements, but all optional arguments need to
 be passed using a dictionary. The use of a dictionary allows the user to specify some or all optional
@@ -122,18 +137,14 @@ sendtoaddress:('[{[args]
 Example:
 
 ```C++
-// No optional arguments
+// No optional arguments, just the two required arguments
 q)sendtoaddress["1bNeg..";1.0]   
 
 or
 
-// With optional arguments
+// Two required arguments plus some optional arguments
 q)sendtoaddress["1bNeg..";1.0;(`comment`replaceable)!("My 1st transaction";1b)]
 ```
-
-
-
-## Tests
 
 
 ## License
