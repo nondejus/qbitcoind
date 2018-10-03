@@ -216,6 +216,19 @@ encryptwallet:('[{[args]
  )
 
 
+estimatesmartfee:('[{[args]
+  requiredArgs:`conf_target;
+  optionalArgs:`estimate_mode;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"estimatesmartfee";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 getaccount:('[{[args]
   requiredArgs:`address;
   optionalArgs:();
