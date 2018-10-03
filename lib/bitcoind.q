@@ -921,6 +921,19 @@ removeprunedfunds:('[{[args]
  )
 
 
+rescanblockchain:('[{[args]
+  requiredArgs:();
+  optionalArgs:`start_height`stop_height;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"rescanblockchain";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 savemempool:('[{[args]
   requiredArgs:();
   optionalArgs:();
