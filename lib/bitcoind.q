@@ -921,6 +921,19 @@ sendrawtransaction:('[{[args]
  )
 
 
+sendmany:('[{[args]
+  requiredArgs:`fromaccount`amounts;
+  optionalArgs:`minconf`comment`subtractfeefrom`replaceable`conf_target`estimate_mode;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"sendmany";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 sendtoaddress:('[{[args]
   requiredArgs:`address`amount;
   optionalArgs:`comment`comment_to`subtractfeefromamount`replaceable`conf_target`estimate_mode;
