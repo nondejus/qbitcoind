@@ -34,7 +34,8 @@ Next set the environmental variable QBITCOIND_HOME to where the qbitcoind folder
 ```
     $export QBITCOIND_HOME=/home/mygitrepos/qbitcoind/
 ```
-The library can then be loaded directly into a q session using the command below
+The library can then be loaded directly into a q session using the command below.
+
 You can confirm the library is loaded correctly by checking that the .bitcoind namespace is present in the q session.
 
 ```C++
