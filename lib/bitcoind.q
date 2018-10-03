@@ -489,6 +489,19 @@ getmempoolinfo:('[{[args]
  )
 
 
+getmininginfo:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getmininginfo";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 getnettotals:('[{[args]
   requiredArgs:();
   optionalArgs:();
