@@ -105,7 +105,14 @@ and a dictionary object containing a single key, error. No result key is returne
 ```
 ### Required and Optional Arguments
 
-All functions in the API are set up to take required arguments and optional arguments.
+All functions in the API are set up to take either of the following
+ * No Arguments  (.bitcoind.getdifficulty)
+ * Single or multiple required arguments with no optional arguments (.bitcoind.getreceivedbyaccount)
+ * Single or multiple optional arguments with required arguments (.bitcoind.listaccounts)
+ * Single or multiple required arguments and Single or multiple optional arguments (.bitcoind.importprivkey)
+
+To handle this, functions are actually composites of the form f:('[{[args] };enlist])
+
 The list of optional and required arguments are given at the top of the function definition, as shown below.
 Required arguments can be passed to the function as single elements, but all optional arguments need to
 be passed using a dictionary. The use of a dictionary allows the user to specify some or all optional
@@ -136,7 +143,6 @@ or
 // With optional arguments
 q)sendtoaddress["1bNeg..";1.0;(`comment`replaceable)!("My 1st transaction";1b)]
 ```
-
 
 
 ## Tests
