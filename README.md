@@ -1,7 +1,8 @@
 # qbitcoind
-Running Bitcoin (*bitcoind*) with the -server argument enables it to function as a HTTP JSON-RPC server.
-qbitcoind is a library used to interact with this JSON-RPC API from within a q session.
+This is a q library which enables communication with a running bitcoin core node and wallet, via http json-rpc messages.
+The library supports the vast majority of calls available using bitcoin-cli, see [Supported Functions](https://github.com/jlucid/qbitcoind/wiki/Supported-Functions).
 
+Running a Bitcoin node, *bitcoind*, with the -server argument enables it to function as a http json-rpc server.
 
 ## Functionality
 
