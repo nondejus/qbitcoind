@@ -47,6 +47,19 @@ abandontransaction:('[{[args]
  )
 
 
+abortrescan:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"abortrescan";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 addmultisigaddress:('[{[args]
   requiredArgs:`nrequired`keys;
   optionalArgs:`account`address_type;
