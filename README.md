@@ -22,7 +22,7 @@ Functions cover the following areas
 * [qutil](https://github.com/nugend/qutil) - Required if you wish to load the library using qutil.
   If not, an alternative method is provided. See below.
 * A bitcoin node for the library to communicate with. For install instructions see [Running a Full Node]( https://bitcoin.org/en/full-node).
-  Library within was written and tested against Bitcoin Core Daemon version v0.16.0.0-g4b4d7eb255
+* Library was written and tested against Bitcoin Core Daemon version v0.16.3.0-g49e34e288
 
 ## Installing
 
