@@ -908,6 +908,19 @@ pruneblockchain:('[{[args]
  )
 
 
+removeprunedfunds:('[{[args]
+  requiredArgs:`txid;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"removeprunedfunds";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 savemempool:('[{[args]
   requiredArgs:();
   optionalArgs:();
