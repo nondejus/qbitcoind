@@ -973,6 +973,19 @@ setnetworkactive:('[{[args]
  )
 
 
+settxfee:('[{[args]
+  requiredArgs:`amount;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"settxfee";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 signmessage:('[{[args]
   requiredArgs:`address`message;
   optionalArgs:();
