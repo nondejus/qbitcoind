@@ -1,6 +1,15 @@
 \d .bitcoind
 
 
+///////////////////////////////////////////////////////////
+//  SECTION CONTAINING SETUP LOGIC PRIOR TO LISTED APIs
+//    - Set username and password
+//    - Change hostname
+//    - Function to parse function input
+//    - Function to perform post requests
+//////////////////////////////////////////////////////////
+
+
 userpassEnabled:0b
 hostLookup:(enlist `bitcoind)!(enlist `$":http://127.0.0.1:8332/")
 passLookup:(enlist `bitcoind)!(enlist "");
@@ -25,14 +34,36 @@ defaultPayload:{
 
 parseArgs:{[args;requiredArgs;optionalArgs]
   if[(::)~first args;args:()];
-  if[(0~count requiredArgs) & (0~count optionalArgs) & (0<count args);-1"No required arguments";:`error];
-  if[not (a:count args) in (0;($[count optionalArgs;1;0]))+c:(count requiredArgs);-1"There are too ",$[a<min c;"few";"many"]," arguments";:`error];
+  if[(0~count requiredArgs) & (0~count optionalArgs) & (0<count args);-1"parseArgs: No required arguments for this function";:`error];
+  if[not (a:count args) in (0;($[count optionalArgs;1;0]))+c:(count requiredArgs);-1"parseArgs: There are too ",$[a<min c;"few";"many"]," arguments";:`error];
   requiredInput:$[`~requiredArgs;();(!) . (count requiredArgs)#'(requiredArgs;args)];
-  if[((count args)>(count requiredArgs)) & not 99h~type last args;-1"Optional args not a dict";:`error];
+  if[((count args)>(count requiredArgs)) & not 99h~type last args;-1"parseArgs: Optional arguments must be passed as a dictionary";:`error];
   optionalInput:$[(count args)>(count requiredArgs);last args;()];
   requiredInput,optionalInput
  }
 
+
+base64Encode:{[String]
+  if[not count String;:""];
+  remainder:count[String]mod 3;
+  pc:count p:(0x;0x0000;0x00)remainder;
+  b:.Q.b6 2 sv/: 6 cut raze 0b vs/: String,p;
+  first 76 cut(neg[pc] _ b),pc#"="
+ }
+
+
+request:{[body]
+  hostName:hostLookup[`bitcoind];
+  credentials:base64Encode passLookup[`bitcoind];
+  header:"text/plain \r\n","Authorization: Basic ",credentials;
+  out:@[.Q.hp[hostName;header;];.j.j body;{[err] -2 "Error: request: ",err;:.j.j (enlist `error)!(enlist err)}];
+  @[.j.k;;{[out;err] -2 "Error: ",err," .Q.hp returned: ",out;:(enlist `error)!(enlist out)}[out;]] out
+ }
+
+
+/////////////////////////////////////////////////
+//         HTTP JSON_RPC CALLS
+/////////////////////////////////////////////////
 
 abandontransaction:('[{[args]
   requiredArgs:`txid;
@@ -60,7 +91,7 @@ abortrescan:('[{[args]
  )
 
 
-addmultisigaddress:('[{[args]
+addmultisig:('[{[args]
   requiredArgs:`nrequired`keys;
   optionalArgs:`account`address_type;
   input:parseArgs[args;requiredArgs;optionalArgs];
