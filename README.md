@@ -108,7 +108,7 @@ Incorrect username and password credentials will result in an Error message bein
 and a dictionary object containing a single key, error. No result key is returned.
 ```C++
     q).bitcoind.getblockcount[]
-    Error: partial token at 1 .Q.hpbit returned:
+    Error: partial token at 1 .Q.hp returned:
     error| ""
 ```
 ### Required and Optional Arguments
