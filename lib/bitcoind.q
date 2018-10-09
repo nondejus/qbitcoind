@@ -861,6 +861,19 @@ listbanned:('[{[args]
  )
 
 
+listlockunspent:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"listlockunspent";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 listreceivedbyaccount:('[{[args]
   requiredArgs:();
   optionalArgs:`minconf`include_empty`include_watchonly;
