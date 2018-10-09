@@ -900,6 +900,19 @@ listreceivedbyaddress:('[{[args]
  )
 
 
+listsinceblock:('[{[args]
+  requiredArgs:();
+  optionalArgs:`blockhash`target_confirmations`include_watchonly`include_removed;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"listsinceblock";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 listtransactions:('[{[args]
   requiredArgs:();
   optionalArgs:`account`count`skip`include_watchonly;
