@@ -1225,13 +1225,26 @@ signrawtransaction:('[{[args]
  )
 
 
-signrawtransactionwithkey('[{[args]
+signrawtransactionwithkey:('[{[args]
   requiredArgs:`hexstring`privkeys;
   optionalArgs:`prevtxs`sighashtype;
   input:parseArgs[args;requiredArgs;optionalArgs];
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"signrawtransactionwithkey";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+signrawtransactionwithwallet:('[{[args]
+  requiredArgs:`hexstring;
+  optionalArgs:`prevtxs`sighashtype;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"signrawtransactionwithwallet";
   body[`params]:input;
   .bitcoind.request[body]
   };enlist]
