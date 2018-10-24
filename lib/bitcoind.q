@@ -260,6 +260,19 @@ estimatesmartfee:('[{[args]
  )
 
 
+fundrawtransaction:('[{[args]
+  requiredArgs:`hexstring;
+  optionalArgs:`options`iswitness;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"fundrawtransaction";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 getaccount:('[{[args]
   requiredArgs:`address;
   optionalArgs:();
@@ -293,6 +306,19 @@ getaddressesbyaccount:('[{[args]
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getaddressesbyaccount";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+getaddressinfo:('[{[args]
+  requiredArgs:`address;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getaddressinfo";
   body[`params]:input;
   .bitcoind.request[body]
   };enlist]
@@ -757,6 +783,19 @@ getwalletinfo:('[{[args]
  )
 
 
+getzmqnotifications:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getzmqnotifications";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 help:('[{[args]
   requiredArgs:();
   optionalArgs:`command;
@@ -1056,6 +1095,19 @@ savemempool:('[{[args]
  )
 
 
+scantxoutset:('[{[args]
+  requiredArgs:`action`scanobjects;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"scantxoutset";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 sendrawtransaction:('[{[args]
   requiredArgs:`hexstring;
   optionalArgs:`allowhighfees;
@@ -1173,6 +1225,32 @@ signrawtransaction:('[{[args]
  )
 
 
+signrawtransactionwithkey:('[{[args]
+  requiredArgs:`hexstring`privkeys;
+  optionalArgs:`prevtxs`sighashtype;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"signrawtransactionwithkey";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+signrawtransactionwithwallet:('[{[args]
+  requiredArgs:`hexstring;
+  optionalArgs:`prevtxs`sighashtype;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"signrawtransactionwithwallet";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 stop:('[{[args]
   requiredArgs:();
   optionalArgs:();
@@ -1193,6 +1271,19 @@ submitblock:('[{[args]
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"submitblock";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+testmempoolaccept:('[{[args]
+  requiredArgs:`rawtxs;
+  optionalArgs:`allowhighfees;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"testmempoolaccept";
   body[`params]:input;
   .bitcoind.request[body]
   };enlist]
