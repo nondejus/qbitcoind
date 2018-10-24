@@ -1056,6 +1056,19 @@ savemempool:('[{[args]
  )
 
 
+scantxoutset:('[{[args]
+  requiredArgs:`action`scanobjects;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"scantxoutset";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 sendrawtransaction:('[{[args]
   requiredArgs:`hexstring;
   optionalArgs:`allowhighfees;
