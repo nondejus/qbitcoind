@@ -104,6 +104,17 @@ An easy way to confirm that the hostname and authentication credentials are set 
     id    | 0
 ```
 
+alternatively, confirm that the node is running the expected version
+
+```C++
+    q).bitcoind.getnetworkinfo[][`result]
+    version        | 170000f
+    subversion     | "/Satoshi:0.17.0/"
+    protocolversion| 70015f
+````
+
+
+
 Incorrect username and password credentials will result in an Error message being printed to stderr,
 and a dictionary object containing a single key, error. No result key is returned.
 ```C++
