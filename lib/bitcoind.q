@@ -1225,6 +1225,19 @@ submitblock:('[{[args]
  )
 
 
+testmempoolaccept:('[{[args]
+  requiredArgs:`rawtxs;
+  optionalArgs:`allowhighfees;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"testmempoolaccept";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 walletlock:('[{[args]
   requiredArgs:();
   optionalArgs:();
