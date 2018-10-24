@@ -260,6 +260,19 @@ estimatesmartfee:('[{[args]
  )
 
 
+fundrawtransaction:('[{[args]
+  requiredArgs:`hexstring;
+  optionalArgs:`options`iswitness;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"fundrawtransaction";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 getaccount:('[{[args]
   requiredArgs:`address;
   optionalArgs:();
