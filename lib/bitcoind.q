@@ -312,6 +312,19 @@ getaddressesbyaccount:('[{[args]
  )
 
 
+getaddressinfo:('[{[args]
+  requiredArgs:`address;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getaddressinfo";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 getbalance:('[{[args]
   requiredArgs:();
   optionalArgs:`account`minconf`include_watchonly;
