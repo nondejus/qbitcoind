@@ -770,6 +770,19 @@ getwalletinfo:('[{[args]
  )
 
 
+getzmqnotifications:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getzmqnotifications";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 help:('[{[args]
   requiredArgs:();
   optionalArgs:`command;
