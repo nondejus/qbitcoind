@@ -91,9 +91,9 @@ abortrescan:('[{[args]
  )
 
 
-addmultisig:('[{[args]
+addmultisigaddress:('[{[args]
   requiredArgs:`nrequired`keys;
-  optionalArgs:`account`address_type;
+  optionalArgs:`label`address_type;
   input:parseArgs[args;requiredArgs;optionalArgs];
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
