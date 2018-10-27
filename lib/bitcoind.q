@@ -928,7 +928,7 @@ listreceivedbyaccount:('[{[args]
 
 listreceivedbyaddress:('[{[args]
   requiredArgs:();
-  optionalArgs:`minconf`include_empty`include_watchonly;
+  optionalArgs:`minconf`include_empty`include_watchonly`address_filter;
   input:parseArgs[args;requiredArgs;optionalArgs];
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
