@@ -926,6 +926,19 @@ listbanned:('[{[args]
  )
 
 
+listlabels:('[{[args]
+  requiredArgs:();
+  optionalArgs:`purpose;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"listlabels";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 listlockunspent:('[{[args]
   requiredArgs:();
   optionalArgs:();
