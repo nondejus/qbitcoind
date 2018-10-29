@@ -1213,6 +1213,19 @@ setban:('[{[args]
  )
 
 
+setlabel:('[{[args]
+  requiredArgs:`address`label;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"setlabel";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 setnetworkactive:('[{[args]
   requiredArgs:`state;
   optionalArgs:();
