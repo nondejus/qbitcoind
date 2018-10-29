@@ -1460,4 +1460,97 @@ verifymessage:('[{[args]
  )
 
 
+// BIP 174 Partially Signed Bitcoin Transactions support
+
+converttopsbt:('[{[args]
+  requiredArgs:`hexstring;
+  optionalArgs:`permitsigdata`iswitness;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"converttopsbt";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+createpsbt:('[{[args]
+  requiredArgs:`inputs`outputs;
+  optionalArgs:`locktime`replaceable;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"createpsbt";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+walletcreatefundedpsbt:('[{[args]
+  requiredArgs:`inputs`outputs;
+  optionalArgs:`locktime`options`bip32derivs;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"walletcreatefundedpsbt";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+walletprocesspsbt:('[{[args]
+  requiredArgs:`psbt;
+  optionalArgs:`sign`sighashtype`bip32derivs;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"walletprocesspsbt";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+finalizepsbt:('[{[args]
+  requiredArgs:`psbt;
+  optionalArgs:`extract;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"finalizepsbt";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+combinepsbt:('[{[args]
+  requiredArgs:`txs;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"combinepsbt";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+decodepsbt:('[{[args]
+  requiredArgs:`psbt;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"decodepsbt";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 \d .
