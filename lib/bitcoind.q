@@ -340,7 +340,7 @@ getaddressinfo:('[{[args]
 
 getbalance:('[{[args]
   requiredArgs:();
-  optionalArgs:`account`minconf`include_watchonly;
+  optionalArgs:`dummy`minconf`include_watchonly;
   input:parseArgs[args;requiredArgs;optionalArgs];
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
@@ -613,7 +613,7 @@ getnetworkinfo:('[{[args]
 
 getnewaddress:('[{[args]
   requiredArgs:();
-  optionalArgs:`account`address_type;
+  optionalArgs:`label`address_type;
   input:parseArgs[args;requiredArgs;optionalArgs];
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
@@ -1007,7 +1007,7 @@ listsinceblock:('[{[args]
 
 listtransactions:('[{[args]
   requiredArgs:();
-  optionalArgs:`account`count`skip`include_watchonly;
+  optionalArgs:`dummy`count`skip`include_watchonly;
   input:parseArgs[args;requiredArgs;optionalArgs];
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
@@ -1175,7 +1175,7 @@ sendrawtransaction:('[{[args]
 
 
 sendmany:('[{[args]
-  requiredArgs:`fromaccount`amounts;
+  requiredArgs:`dummy`amounts;
   optionalArgs:`minconf`comment`subtractfeefrom`replaceable`conf_target`estimate_mode;
   input:parseArgs[args;requiredArgs;optionalArgs];
   if[`error~input;:()];
