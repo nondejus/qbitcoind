@@ -718,6 +718,19 @@ getreceivedbyaddress:('[{[args]
  )
 
 
+getreceivedbylabel:('[{[args]
+  requiredArgs:`address;
+  optionalArgsi:`minconf;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getreceivedbylabel";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 gettransaction:('[{[args]
   requiredArgs:`txid;
   optionalArgs:`include_watchonly;
