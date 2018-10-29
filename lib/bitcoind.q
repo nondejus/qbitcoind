@@ -312,6 +312,19 @@ getaddressesbyaccount:('[{[args]
  )
 
 
+getaddressesbylabel:('[{[args]
+  requiredArgs:`label;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getaddressesbylabel";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 getaddressinfo:('[{[args]
   requiredArgs:`address;
   optionalArgs:();
