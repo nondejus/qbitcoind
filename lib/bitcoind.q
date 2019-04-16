@@ -156,6 +156,19 @@ clearbanned:('[{[args]
  )
 
 
+createmultisig:('[{[args]
+  requiredArgs:`nrequired`keys;
+  optionalArgs:`address_type;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"createmultisig";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 createrawtransaction:('[{[args]
   requiredArgs:`inputs`outputs;
   optionalArgs:`locktime`replaceable;
