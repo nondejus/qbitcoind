@@ -1020,7 +1020,7 @@ listsinceblock:('[{[args]
 
 listtransactions:('[{[args]
   requiredArgs:();
-  optionalArgs:`dummy`count`skip`include_watchonly;
+  optionalArgs:`label`count`skip`include_watchonly;
   input:parseArgs[args;requiredArgs;optionalArgs];
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
