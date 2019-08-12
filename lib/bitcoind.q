@@ -533,6 +533,19 @@ getconnectioncount:('[{[args]
  )
 
 
+getdescriptorinfo:('[{[args]
+  requiredArgs:`descriptor;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getdescriptorinfo";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 getdifficulty:('[{[args]
   requiredArgs:();
   optionalArgs:();
