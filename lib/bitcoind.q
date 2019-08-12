@@ -286,6 +286,19 @@ fundrawtransaction:('[{[args]
  )
 
 
+generatetoaddress:('[{[args]
+  requiredArgs:`nblocks`address;
+  optionalArgs:`maxtries;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"generatetoaddress";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 getaccount:('[{[args]
   requiredArgs:`address;
   optionalArgs:();
