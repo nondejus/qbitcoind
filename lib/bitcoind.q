@@ -182,6 +182,19 @@ createrawtransaction:('[{[args]
  )
 
 
+createwallet:('[{[args]
+  requiredArgs:`wallet_name;
+  optionalArgs:`disable_private_keys`blank;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"createwallet";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 decoderawtransaction:('[{[args]
   requiredArgs:`hexstring;
   optionalArgs:`iswitness;   
