@@ -117,19 +117,6 @@ addnode:('[{[args]
  )
 
 
-analyzepsbt:('[{[args]
-  requiredArgs:`psbt;
-  optionalArgs:();
-  input:parseArgs[args;requiredArgs;optionalArgs];
-  if[`error~input;:()];
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"analyzepsbt";
-  body[`params]:input;
-  .bitcoind.request[body]
-  };enlist]
- )
-
-
 backupwallet:('[{[args]
   requiredArgs:`destination;
   optionalArgs:();
@@ -1004,19 +991,6 @@ importwallet:('[{[args]
  )
 
 
-joinpsbts:('[{[args]
-  requiredArgs:`txs;
-  optionalArgs:();
-  input:parseArgs[args;requiredArgs;optionalArgs];
-  if[`error~input;:()];
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"joinpsbts";
-  body[`params]:input;
-  .bitcoind.request[body]
-  };enlist]
- )
-
-
 listaccounts:('[{[args]
   requiredArgs:();
   optionalArgs:`minconf`include_watchonly;
@@ -1604,6 +1578,33 @@ verifymessage:('[{[args]
 
 
 // BIP 174 Partially Signed Bitcoin Transactions support
+
+
+joinpsbts:('[{[args]
+  requiredArgs:`txs;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"joinpsbts";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+analyzepsbt:('[{[args]
+  requiredArgs:`psbt;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"analyzepsbt";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
 
 converttopsbt:('[{[args]
   requiredArgs:`hexstring;
