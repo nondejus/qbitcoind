@@ -772,11 +772,24 @@ getreceivedbyaddress:('[{[args]
 
 getreceivedbylabel:('[{[args]
   requiredArgs:`address;
-  optionalArgsi:`minconf;
+  optionalArgs:`minconf;
   input:parseArgs[args;requiredArgs;optionalArgs];
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getreceivedbylabel";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+getrpcinfo:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getrpcinfo";
   body[`params]:input;
   .bitcoind.request[body]
   };enlist]
