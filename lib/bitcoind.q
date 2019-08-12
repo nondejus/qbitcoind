@@ -221,6 +221,19 @@ decodescript:('[{[args]
  )
 
 
+deriveaddresses:('[{[args]
+  requiredArgs:`descriptor;
+  optionalArgs:`range;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"deriveaddresses";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 disconnectnode:('[{[args]
   requiredArgs:();
   optionalArgs:`address`nodeid;
