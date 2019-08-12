@@ -1109,6 +1109,19 @@ listwallets:('[{[args]
  )
 
 
+listwalletdir:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"listwalletdir";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 lockunspent:('[{[args]
   requiredArgs:`unlock;
   optionalArgs:`transactions;
