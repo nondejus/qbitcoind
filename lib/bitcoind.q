@@ -1291,19 +1291,6 @@ signmessagewithprivkey:('[{[args]
  )
 
 
-signrawtransaction:('[{[args]
-  requiredArgs:`hexstring;
-  optionalArgs:`prevtxs`privkeys`sighashtype;
-  input:parseArgs[args;requiredArgs;optionalArgs];
-  if[`error~input;:()];
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"signrawtransaction";
-  body[`params]:input;
-  .bitcoind.request[body]
-  };enlist]
- )
-
-
 signrawtransactionwithkey:('[{[args]
   requiredArgs:`hexstring`privkeys;
   optionalArgs:`prevtxs`sighashtype;
