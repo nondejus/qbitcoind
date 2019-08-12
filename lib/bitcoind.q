@@ -991,6 +991,19 @@ importwallet:('[{[args]
  )
 
 
+joinpsbts:('[{[args]
+  requiredArgs:`txs;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"joinpsbts";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 listaccounts:('[{[args]
   requiredArgs:();
   optionalArgs:`minconf`include_watchonly;
