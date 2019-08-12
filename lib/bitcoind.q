@@ -874,6 +874,19 @@ importaddress:('[{[args]
  )
 
 
+importmulti:('[{[args]
+  requiredArgs:`requests;
+  optionalArgs:`options`;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"importmulti";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 importpubkey:('[{[args]
   requiredArgs:`pubkey;
   optionalArgs:`label`rescan;
