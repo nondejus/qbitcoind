@@ -1421,6 +1421,19 @@ walletpassphrasechange:('[{[args]
  )
 
 
+unloadwallet:('[{[args]
+  requiredArgs:();
+  optionalArgs:`wallet_name;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"unloadwallet";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 uptime:('[{[args]
   requiredArgs:();
   optionalArgs:();
