@@ -876,7 +876,7 @@ importaddress:('[{[args]
 
 importmulti:('[{[args]
   requiredArgs:`requests;
-  optionalArgs:`options`;
+  optionalArgs:`options;
   input:parseArgs[args;requiredArgs;optionalArgs];
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
