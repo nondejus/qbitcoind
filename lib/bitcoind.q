@@ -182,6 +182,19 @@ createrawtransaction:('[{[args]
  )
 
 
+createwallet:('[{[args]
+  requiredArgs:`wallet_name;
+  optionalArgs:`disable_private_keys`blank;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"createwallet";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 decoderawtransaction:('[{[args]
   requiredArgs:`hexstring;
   optionalArgs:`iswitness;   
@@ -202,6 +215,19 @@ decodescript:('[{[args]
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"decodescript";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+deriveaddresses:('[{[args]
+  requiredArgs:`descriptor;
+  optionalArgs:`range;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"deriveaddresses";
   body[`params]:input;
   .bitcoind.request[body]
   };enlist]
@@ -286,13 +312,13 @@ fundrawtransaction:('[{[args]
  )
 
 
-getaccount:('[{[args]
-  requiredArgs:`address;
-  optionalArgs:();
+generatetoaddress:('[{[args]
+  requiredArgs:`nblocks`address;
+  optionalArgs:`maxtries;
   input:parseArgs[args;requiredArgs;optionalArgs];
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
-  body[`method]:"getaccount";
+  body[`method]:"generatetoaddress";
   body[`params]:input;
   .bitcoind.request[body]
   };enlist]
@@ -306,19 +332,6 @@ getaddednodeinfo:('[{[args]
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getaddednodeinfo";
-  body[`params]:input;
-  .bitcoind.request[body]
-  };enlist]
- )
-
-
-getaddressesbyaccount:('[{[args]
-  requiredArgs:`account;
-  optionalArgs:();
-  input:parseArgs[args;requiredArgs;optionalArgs];
-  if[`error~input;:()];
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"getaddressesbyaccount";
   body[`params]:input;
   .bitcoind.request[body]
   };enlist]
@@ -494,6 +507,19 @@ getconnectioncount:('[{[args]
  )
 
 
+getdescriptorinfo:('[{[args]
+  requiredArgs:`descriptor;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getdescriptorinfo";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 getdifficulty:('[{[args]
   requiredArgs:();
   optionalArgs:();
@@ -637,6 +663,19 @@ getnewaddress:('[{[args]
  )
 
 
+getnodeaddresses:('[{[args]
+  requiredArgs:();
+  optionalArgs:`count;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getnodeaddresses";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 getpeerinfo:('[{[args]
   requiredArgs:();
   optionalArgs:();
@@ -705,19 +744,6 @@ batch_getrawtransactions:('[{[args]
  )
 
 
-getreceivedbyaccount:('[{[args]
-  requiredArgs:`account`minconf;
-  optionalArgs:();
-  input:parseArgs[args;requiredArgs;optionalArgs];
-  if[`error~input;:()];
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"getreceivedbyaccount";
-  body[`params]:input;
-  .bitcoind.request[body]
-  };enlist]
- )
-
-
 getreceivedbyaddress:('[{[args]
   requiredArgs:`address`minconf;
   optionalArgs:();
@@ -732,12 +758,25 @@ getreceivedbyaddress:('[{[args]
 
 
 getreceivedbylabel:('[{[args]
-  requiredArgs:`address;
-  optionalArgsi:`minconf;
+  requiredArgs:`label;
+  optionalArgs:`minconf;
   input:parseArgs[args;requiredArgs;optionalArgs];
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"getreceivedbylabel";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+getrpcinfo:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"getrpcinfo";
   body[`params]:input;
   .bitcoind.request[body]
   };enlist]
@@ -861,6 +900,19 @@ importaddress:('[{[args]
  )
 
 
+importmulti:('[{[args]
+  requiredArgs:`requests;
+  optionalArgs:`options;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"importmulti";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 importpubkey:('[{[args]
   requiredArgs:`pubkey;
   optionalArgs:`label`rescan;
@@ -894,19 +946,6 @@ importwallet:('[{[args]
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"importwallet";
-  body[`params]:input;
-  .bitcoind.request[body]
-  };enlist]
- )
-
-
-listaccounts:('[{[args]
-  requiredArgs:();
-  optionalArgs:`minconf`include_watchonly;
-  input:parseArgs[args;requiredArgs;optionalArgs];
-  if[`error~input;:()];
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"listaccounts";
   body[`params]:input;
   .bitcoind.request[body]
   };enlist]
@@ -963,20 +1002,6 @@ listlockunspent:('[{[args]
   .bitcoind.request[body]
   };enlist]
  )
-
-
-listreceivedbyaccount:('[{[args]
-  requiredArgs:();
-  optionalArgs:`minconf`include_empty`include_watchonly;
-  input:parseArgs[args;requiredArgs;optionalArgs];
-  if[`error~input;:()];
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"listreceivedbyaccount";
-  body[`params]:input;
-  .bitcoind.request[body]
-  };enlist]
- )
-
 
 
 listreceivedbyaddress:('[{[args]
@@ -1051,6 +1076,19 @@ listwallets:('[{[args]
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"listwallets";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+listwalletdir:('[{[args]
+  requiredArgs:();
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"listwalletdir";
   body[`params]:input;
   .bitcoind.request[body]
   };enlist]
@@ -1291,19 +1329,6 @@ signmessagewithprivkey:('[{[args]
  )
 
 
-signrawtransaction:('[{[args]
-  requiredArgs:`hexstring;
-  optionalArgs:`prevtxs`privkeys`sighashtype;
-  input:parseArgs[args;requiredArgs;optionalArgs];
-  if[`error~input;:()];
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"signrawtransaction";
-  body[`params]:input;
-  .bitcoind.request[body]
-  };enlist]
- )
-
-
 signrawtransactionwithkey:('[{[args]
   requiredArgs:`hexstring`privkeys;
   optionalArgs:`prevtxs`sighashtype;
@@ -1408,6 +1433,19 @@ walletpassphrasechange:('[{[args]
  )
 
 
+unloadwallet:('[{[args]
+  requiredArgs:();
+  optionalArgs:`wallet_name;
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"unloadwallet";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 uptime:('[{[args]
   requiredArgs:();
   optionalArgs:();
@@ -1474,6 +1512,33 @@ verifymessage:('[{[args]
 
 
 // BIP 174 Partially Signed Bitcoin Transactions support
+
+
+joinpsbts:('[{[args]
+  requiredArgs:`txs;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"joinpsbts";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+analyzepsbt:('[{[args]
+  requiredArgs:`psbt;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"analyzepsbt";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
 
 converttopsbt:('[{[args]
   requiredArgs:`hexstring;
@@ -1560,6 +1625,19 @@ decodepsbt:('[{[args]
   if[`error~input;:()];
   body:.bitcoind.defaultPayload[];
   body[`method]:"decodepsbt";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
+utxoupdatepsbt:('[{[args]
+  requiredArgs:`psbt;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"utxoupdatepsbt";
   body[`params]:input;
   .bitcoind.request[body]
   };enlist]
