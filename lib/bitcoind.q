@@ -1697,4 +1697,17 @@ decodepsbt:('[{[args]
  )
 
 
+utxoupdatepsbt:('[{[args]
+  requiredArgs:`psbt;
+  optionalArgs:();
+  input:parseArgs[args;requiredArgs;optionalArgs];
+  if[`error~input;:()];
+  body:.bitcoind.defaultPayload[];
+  body[`method]:"utxoupdatepsbt";
+  body[`params]:input;
+  .bitcoind.request[body]
+  };enlist]
+ )
+
+
 \d .
