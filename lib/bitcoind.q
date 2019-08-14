@@ -1004,20 +1004,6 @@ listlockunspent:('[{[args]
  )
 
 
-listreceivedbyaccount:('[{[args]
-  requiredArgs:();
-  optionalArgs:`minconf`include_empty`include_watchonly;
-  input:parseArgs[args;requiredArgs;optionalArgs];
-  if[`error~input;:()];
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"listreceivedbyaccount";
-  body[`params]:input;
-  .bitcoind.request[body]
-  };enlist]
- )
-
-
-
 listreceivedbyaddress:('[{[args]
   requiredArgs:();
   optionalArgs:`minconf`include_empty`include_watchonly`address_filter;
