@@ -338,19 +338,6 @@ getaddednodeinfo:('[{[args]
  )
 
 
-getaddressesbyaccount:('[{[args]
-  requiredArgs:`account;
-  optionalArgs:();
-  input:parseArgs[args;requiredArgs;optionalArgs];
-  if[`error~input;:()];
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"getaddressesbyaccount";
-  body[`params]:input;
-  .bitcoind.request[body]
-  };enlist]
- )
-
-
 getaddressesbylabel:('[{[args]
   requiredArgs:`label;
   optionalArgs:();
