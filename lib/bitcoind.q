@@ -758,7 +758,7 @@ getreceivedbyaddress:('[{[args]
 
 
 getreceivedbylabel:('[{[args]
-  requiredArgs:`address;
+  requiredArgs:`label;
   optionalArgs:`minconf;
   input:parseArgs[args;requiredArgs;optionalArgs];
   if[`error~input;:()];
