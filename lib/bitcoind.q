@@ -952,19 +952,6 @@ importwallet:('[{[args]
  )
 
 
-listaccounts:('[{[args]
-  requiredArgs:();
-  optionalArgs:`minconf`include_watchonly;
-  input:parseArgs[args;requiredArgs;optionalArgs];
-  if[`error~input;:()];
-  body:.bitcoind.defaultPayload[];
-  body[`method]:"listaccounts";
-  body[`params]:input;
-  .bitcoind.request[body]
-  };enlist]
- )
-
-
 listaddressgroupings:('[{[args]
   requiredArgs:();
   optionalArgs:();
